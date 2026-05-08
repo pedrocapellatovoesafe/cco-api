@@ -20,14 +20,14 @@ const routes = {
   },
   'profile.profile.show': {
     methods: ["GET","HEAD"],
-    pattern: '/api/v1/account/profile',
-    tokens: [{"old":"/api/v1/account/profile","type":0,"val":"api","end":""},{"old":"/api/v1/account/profile","type":0,"val":"v1","end":""},{"old":"/api/v1/account/profile","type":0,"val":"account","end":""},{"old":"/api/v1/account/profile","type":0,"val":"profile","end":""}],
+    pattern: '/account/profile',
+    tokens: [{"old":"/account/profile","type":0,"val":"account","end":""},{"old":"/account/profile","type":0,"val":"profile","end":""}],
     types: placeholder as Registry['profile.profile.show']['types'],
   },
   'profile.access_tokens.destroy': {
     methods: ["POST"],
-    pattern: '/api/v1/account/logout',
-    tokens: [{"old":"/api/v1/account/logout","type":0,"val":"api","end":""},{"old":"/api/v1/account/logout","type":0,"val":"v1","end":""},{"old":"/api/v1/account/logout","type":0,"val":"account","end":""},{"old":"/api/v1/account/logout","type":0,"val":"logout","end":""}],
+    pattern: '/account/logout',
+    tokens: [{"old":"/account/logout","type":0,"val":"account","end":""},{"old":"/account/logout","type":0,"val":"logout","end":""}],
     types: placeholder as Registry['profile.access_tokens.destroy']['types'],
   },
   'users.index': {
@@ -498,41 +498,17 @@ const routes = {
     tokens: [{"old":"/api/v1/slots","type":0,"val":"api","end":""},{"old":"/api/v1/slots","type":0,"val":"v1","end":""},{"old":"/api/v1/slots","type":0,"val":"slots","end":""}],
     types: placeholder as Registry['slots.index']['types'],
   },
-  'slots.create': {
-    methods: ["GET","HEAD"],
-    pattern: '/api/v1/slots/create',
-    tokens: [{"old":"/api/v1/slots/create","type":0,"val":"api","end":""},{"old":"/api/v1/slots/create","type":0,"val":"v1","end":""},{"old":"/api/v1/slots/create","type":0,"val":"slots","end":""},{"old":"/api/v1/slots/create","type":0,"val":"create","end":""}],
-    types: placeholder as Registry['slots.create']['types'],
-  },
   'slots.store': {
     methods: ["POST"],
     pattern: '/api/v1/slots',
     tokens: [{"old":"/api/v1/slots","type":0,"val":"api","end":""},{"old":"/api/v1/slots","type":0,"val":"v1","end":""},{"old":"/api/v1/slots","type":0,"val":"slots","end":""}],
     types: placeholder as Registry['slots.store']['types'],
   },
-  'slots.show': {
-    methods: ["GET","HEAD"],
-    pattern: '/api/v1/slots/:id',
-    tokens: [{"old":"/api/v1/slots/:id","type":0,"val":"api","end":""},{"old":"/api/v1/slots/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/slots/:id","type":0,"val":"slots","end":""},{"old":"/api/v1/slots/:id","type":1,"val":"id","end":""}],
-    types: placeholder as Registry['slots.show']['types'],
-  },
-  'slots.edit': {
-    methods: ["GET","HEAD"],
-    pattern: '/api/v1/slots/:id/edit',
-    tokens: [{"old":"/api/v1/slots/:id/edit","type":0,"val":"api","end":""},{"old":"/api/v1/slots/:id/edit","type":0,"val":"v1","end":""},{"old":"/api/v1/slots/:id/edit","type":0,"val":"slots","end":""},{"old":"/api/v1/slots/:id/edit","type":1,"val":"id","end":""},{"old":"/api/v1/slots/:id/edit","type":0,"val":"edit","end":""}],
-    types: placeholder as Registry['slots.edit']['types'],
-  },
-  'slots.update': {
-    methods: ["PUT","PATCH"],
-    pattern: '/api/v1/slots/:id',
-    tokens: [{"old":"/api/v1/slots/:id","type":0,"val":"api","end":""},{"old":"/api/v1/slots/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/slots/:id","type":0,"val":"slots","end":""},{"old":"/api/v1/slots/:id","type":1,"val":"id","end":""}],
-    types: placeholder as Registry['slots.update']['types'],
-  },
-  'slots.destroy': {
-    methods: ["DELETE"],
-    pattern: '/api/v1/slots/:id',
-    tokens: [{"old":"/api/v1/slots/:id","type":0,"val":"api","end":""},{"old":"/api/v1/slots/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/slots/:id","type":0,"val":"slots","end":""},{"old":"/api/v1/slots/:id","type":1,"val":"id","end":""}],
-    types: placeholder as Registry['slots.destroy']['types'],
+  'slots.import': {
+    methods: ["POST"],
+    pattern: '/api/v1/slots/import',
+    tokens: [{"old":"/api/v1/slots/import","type":0,"val":"api","end":""},{"old":"/api/v1/slots/import","type":0,"val":"v1","end":""},{"old":"/api/v1/slots/import","type":0,"val":"slots","end":""},{"old":"/api/v1/slots/import","type":0,"val":"import","end":""}],
+    types: placeholder as Registry['slots.import']['types'],
   },
   'barras.index': {
     methods: ["GET","HEAD"],

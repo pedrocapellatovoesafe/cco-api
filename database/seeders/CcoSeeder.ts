@@ -46,18 +46,12 @@ export default class CcoSeeder extends BaseSeeder {
     }
 
     // 5. Status Slots
-    const statusSlots = ['CONFIRMADO', 'PENDENTE', 'AGUARDANDO CONFIRMAÇÃO', 'OPERAÇÕES', 'REVISÃO', 'MANUTENÇÃO']
+    const statusSlots = ['CONFIRMADO', 'PENDENTE', 'AGUARDANDO CONFIRMAÇÃO', 'METEOROLOGIA', 'OPERAÇÕES', 'REVISÃO', 'MANUTENÇÃO']
     for (const nome of statusSlots) {
       await StatusSlot.updateOrCreate({ nome }, { nome })
     }
 
-    // 6. Cursos
-    const cursos = ['PPA - Pratico', 'PC/IFRA', 'INVA']
-    for (const nome of cursos) {
-      await Curso.updateOrCreate({ nome }, { nome })
-    }
-
-    // Aluno
+    // 6.Aluno
     await Aluno.updateOrCreate({
         nome: 'ALUNO TESTE',
         cpf: '12345678901',
@@ -66,13 +60,13 @@ export default class CcoSeeder extends BaseSeeder {
 
     // 7. Aeronaves
     const aeronavesData = [
-      { nome: 'PSSFE', modelo: 'MC01' },
-      { nome: 'PSLOM', modelo: 'MC01' },
-      { nome: 'PSSFH', modelo: 'MC01' },
-      { nome: 'PSSFI', modelo: 'MC01' },
-      { nome: 'PSSFJ', modelo: 'COLT' },
-      { nome: 'PSSFL', modelo: 'MC01' },
-      { nome: 'PSSFP', modelo: 'SIRA' },
+      { nome: 'PS-SFE', modelo: 'MC01' },
+      { nome: 'PS-LOM', modelo: 'MC01' },
+      { nome: 'PS-SFH', modelo: 'MC01' },
+      { nome: 'PS-SFI', modelo: 'MC01' },
+      { nome: 'PS-SFJ', modelo: 'COLT' },
+      { nome: 'PS-SFL', modelo: 'MC01' },
+      { nome: 'PS-SFP', modelo: 'SIRA' },
     ]
     for (const { nome, modelo } of aeronavesData) {
       const modeloInstance = await ModeloAeronave.findByOrFail('nome', modelo)
@@ -82,27 +76,7 @@ export default class CcoSeeder extends BaseSeeder {
       })
     }
 
-    // 8. Missões
-    const cursoPpa = await Curso.findByOrFail('nome', 'PPA - Pratico')
-    const missoes = [
-      'Mockup 04 - PCATD', 'CHEQUE ANAC', 'Currículo de Solo', 'Mockup 01', 'Mockup 02', 'Mockup 03',
-      'PS01', 'PS02', 'PS03', 'PS04', 'PS05', 'PS06', 'PS07', 'PS08', 'PS09', 'PS10', 'PS11', 'PS12', 'PS13',
-      'Readaptação PS', 'PSR1 (Recuperação da PS12)', 'PS13 INATIVO', 'PS15 [desativada]', 'PS16-1 [desativada]',
-      'PS16-2 [desativada]', 'PS16-3 [desativada]', 'PS16-4 [desativada]', 'PS16-5 [desativada]', 'PS16 [desativada]',
-      'PS17 [desativada]', 'PS18 [desativada]', 'PS19 [desativada]', 'PS-X1 [desativada]', 'AP01', 'AP02', 'AP03',
-      'AP04', 'AP05', 'Readaptação AP', 'AP03 DC', 'AP07 [desativada]', 'AP08 [desativada]', 'AP09 [desativada]',
-      'AP-X1 [desativada]', 'SIM NAV VFR', 'NAV01', 'NAV02', 'NAV03', 'NAV04', 'NAV05', 'Readaptação NAV',
-      'Monitoria NAV VFR', 'SIM IFR', 'Simulador PCATD', 'NOT01', 'NOT02', 'Avaliação Final', 'Cheque ANAC - PP',
-      'Reforço - Avaliação Final'
-    ]
-    for (const nome of missoes) {
-      await Missao.updateOrCreate({ nome }, {
-        nome,
-        cursoId: cursoPpa.id,
-      })
-    }
-
-    // 9. Invas
+    // 7. Invas
     const invasData = [
       { nome: 'KEVIN ARAÚJO WAJIMA', situacao: 'clt_full', base: 'SJK' },
       { nome: 'DIEGO SOARES GONÇALVES', situacao: 'clt_full', base: 'SJK' },
@@ -149,18 +123,19 @@ export default class CcoSeeder extends BaseSeeder {
       })
     }
 
+    // 8. Barras
     const dadosBarras = [
-      { nome: 'MC-01 (SJK)', modelo: 'MC01' },
-      { nome: 'MC01 (SJK) (DIURNO)', modelo: 'MC01' },
-      { nome: 'MC01 - BACKUP', modelo: 'MC01' },
-      { nome: 'SIRA (SJK)', modelo: 'SIRA' },
-      { nome: 'SIM PCATD - SBSJ', modelo: 'SM PCATD' },
-      { nome: 'SM AATD SJK', modelo: 'SM AATD' },
-      { nome: 'SIM AATD CPQ', modelo: 'SM AATD' },
-      { nome: 'SIM PCATD - SDAM', modelo: 'SM PCATD' },
-      { nome: 'COLT', modelo: 'COLT' },
-      { nome: 'COLT DIURNO', modelo: 'COLT' },
-      { nome: 'MC01 (CPQ)', modelo: 'MC01' }
+      { nome: 'MC-01 (SJK) #1', modelo: 'MC01' },
+      { nome: 'MC01 (SJK) (DIURNO) #2', modelo: 'MC01' },
+      { nome: 'MC01 - BACKUP #3', modelo: 'MC01' },
+      { nome: 'SIRA (SJK) #4', modelo: 'SIRA' },
+      { nome: 'SIM PCATD - SBSJ #5', modelo: 'SM PCATD' },
+      { nome: 'SM AATD SJK #6', modelo: 'SM AATD' },
+      { nome: 'SIM AATD CPQ #7', modelo: 'SM AATD' },
+      { nome: 'SIM PCATD - SDAM #8', modelo: 'SM PCATD' },
+      { nome: 'COLT #11', modelo: 'COLT' },
+      { nome: 'COLT DIURNO #12', modelo: 'COLT' },
+      { nome: 'MC01 (CPQ) #13', modelo: 'MC01' }
     ]
 
     for (const { nome, modelo } of dadosBarras) {

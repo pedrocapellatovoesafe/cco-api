@@ -33,7 +33,7 @@ export interface Registry {
   }
   'profile.profile.show': {
     methods: ["GET","HEAD"]
-    pattern: '/api/v1/account/profile'
+    pattern: '/account/profile'
     types: {
       body: {}
       paramsTuple: []
@@ -45,7 +45,7 @@ export interface Registry {
   }
   'profile.access_tokens.destroy': {
     methods: ["POST"]
-    pattern: '/api/v1/account/logout'
+    pattern: '/account/logout'
     types: {
       body: {}
       paramsTuple: []
@@ -991,18 +991,6 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['index']>>>
     }
   }
-  'slots.create': {
-    methods: ["GET","HEAD"]
-    pattern: '/api/v1/slots/create'
-    types: {
-      body: {}
-      paramsTuple: []
-      params: {}
-      query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['create']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['create']>>>
-    }
-  }
   'slots.store': {
     methods: ["POST"]
     pattern: '/api/v1/slots'
@@ -1015,52 +1003,16 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['store']>>>
     }
   }
-  'slots.show': {
-    methods: ["GET","HEAD"]
-    pattern: '/api/v1/slots/:id'
+  'slots.import': {
+    methods: ["POST"]
+    pattern: '/api/v1/slots/import'
     types: {
       body: {}
-      paramsTuple: [ParamValue]
-      params: { id: ParamValue }
+      paramsTuple: []
+      params: {}
       query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['show']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['show']>>>
-    }
-  }
-  'slots.edit': {
-    methods: ["GET","HEAD"]
-    pattern: '/api/v1/slots/:id/edit'
-    types: {
-      body: {}
-      paramsTuple: [ParamValue]
-      params: { id: ParamValue }
-      query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['edit']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['edit']>>>
-    }
-  }
-  'slots.update': {
-    methods: ["PUT","PATCH"]
-    pattern: '/api/v1/slots/:id'
-    types: {
-      body: {}
-      paramsTuple: [ParamValue]
-      params: { id: ParamValue }
-      query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['update']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['update']>>>
-    }
-  }
-  'slots.destroy': {
-    methods: ["DELETE"]
-    pattern: '/api/v1/slots/:id'
-    types: {
-      body: {}
-      paramsTuple: [ParamValue]
-      params: { id: ParamValue }
-      query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['destroy']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['destroy']>>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['import']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['import']>>>
     }
   }
   'barras.index': {

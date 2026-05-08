@@ -26,9 +26,9 @@ export class AlunoSchema extends BaseModel {
   static $columns = ['celular', 'cpf', 'createdAt', 'id', 'nome', 'updatedAt'] as const
   $columns = AlunoSchema.$columns
   @column()
-  declare celular: string
+  declare celular: string | null
   @column()
-  declare cpf: string
+  declare cpf: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column({ isPrimary: true })
@@ -201,12 +201,12 @@ export class SituacoesInvaSchema extends BaseModel {
 }
 
 export class SlotSchema extends BaseModel {
-  static $columns = ['aeronaveId', 'alunoId', 'barraId', 'createdAt', 'dataHora', 'id', 'invaId', 'missaoId', 'statusSlotId', 'updatedAt'] as const
+  static $columns = ['aeronaveId', 'alunoId', 'barraId', 'createdAt', 'dataHora', 'id', 'invaId', 'missaoId', 'observacoes', 'statusSlotId', 'updatedAt'] as const
   $columns = SlotSchema.$columns
   @column()
-  declare aeronaveId: number
+  declare aeronaveId: number | null
   @column()
-  declare alunoId: number
+  declare alunoId: number | null
   @column()
   declare barraId: number | null
   @column.dateTime({ autoCreate: true })
@@ -216,9 +216,11 @@ export class SlotSchema extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
   @column()
-  declare invaId: number
+  declare invaId: number | null
   @column()
-  declare missaoId: number
+  declare missaoId: number | null
+  @column()
+  declare observacoes: string | null
   @column()
   declare statusSlotId: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })

@@ -38,7 +38,8 @@ router
       .as('profile')
       .use(middleware.auth())
 
-    // CRUD Routes
+  // CRUD Routes
+  router.group(() => {
     router.resource('users', controllers.Users)
     router.resource('situacao-invas', controllers.SituacaoInvas)
     router.resource('modelo-aeronaves', controllers.ModeloAeronaves)
@@ -50,8 +51,23 @@ router
     router.resource('invas', controllers.Invas)
     router.resource('alunos', controllers.Alunos)
     router.resource('restricoes', controllers.Restricoes)
-    router.resource('slots', controllers.Slots)
+}).prefix('/api/v1').use(middleware.auth())
+
+    // Custom slot import route
+    router
+    .group(() => {
+      router
+        .group(() => {
+          router.get('', [controllers.Slots, 'index'])
+          router.post('', [controllers.Slots, 'store'])
+          router.post('import', [controllers.Slots, 'import'])
+        })
+        .prefix('slots')
+        .use(middleware.auth())
+
+    // router.resource('slots', controllers.Slots)
     router.resource('barras', controllers.Barras)
   })
   .prefix('/api/v1')
   .use(middleware.auth())
+})

@@ -32,6 +32,9 @@ export default class Slot extends BaseModel {
   @column()
   declare barraId: number | null
 
+  @column()
+  declare observacoes: string
+
   @column.dateTime({
     serialize: (value: DateTime) => value.toFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
   })
