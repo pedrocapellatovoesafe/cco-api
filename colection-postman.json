@@ -1,0 +1,129 @@
+{
+	"info": {
+		"name": "SAFE CCO - Full API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "0. Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"pedro.capellato@voesafe.com.br\",\n    \"password\": \"Safe1234%\"\n}",
+							"options": { "json": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+					}
+				},
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"Novo Admin\",\n    \"email\": \"admin@voesafe.com.br\",\n    \"password\": \"Safe1234%\"\n}",
+							"options": { "json": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/auth/signup", "host": ["{{baseUrl}}"], "path": ["auth", "signup"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "1. Account",
+			"item": [
+				{
+					"name": "Profile",
+					"request": { "method": "GET", "url": "{{baseUrl}}/account/profile" }
+				},
+				{
+					"name": "Logout",
+					"request": { "method": "POST", "url": "{{baseUrl}}/account/logout" }
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+			}
+		},
+		{
+			"name": "2. Resources (CRUD)",
+			"item": [
+				{
+					"name": "Usuários",
+					"item": [
+						{ "name": "Listar", "request": { "method": "GET", "url": "{{baseUrl}}/users" } },
+						{ "name": "Ver", "request": { "method": "GET", "url": "{{baseUrl}}/users/1" } },
+						{ "name": "Deletar", "request": { "method": "DELETE", "url": "{{baseUrl}}/users/1" } }
+					]
+				},
+				{
+					"name": "Invas",
+					"item": [
+						{ "name": "Listar", "request": { "method": "GET", "url": "{{baseUrl}}/invas" } },
+						{ "name": "Criar", "request": { "method": "POST", "body": { "mode": "raw", "raw": "{\n    \"nome\": \"INSTRUTOR TESTE\",\n    \"celular\": \"12999999999\",\n    \"situacaoInvaId\": 1,\n    \"baseId\": 1\n}", "options": { "json": { "language": "json" } } }, "url": "{{baseUrl}}/invas" } }
+					]
+				},
+				{
+					"name": "Alunos",
+					"item": [
+						{ "name": "Listar", "request": { "method": "GET", "url": "{{baseUrl}}/alunos" } },
+						{ "name": "Criar", "request": { "method": "POST", "body": { "mode": "raw", "raw": "{\n    \"nome\": \"ALUNO NOVO\",\n    \"cpf\": \"12345678901\",\n    \"celular\": \"12988888888\"\n}", "options": { "json": { "language": "json" } } }, "url": "{{baseUrl}}/alunos" } }
+					]
+				},
+				{
+					"name": "Aeronaves",
+					"item": [
+						{ "name": "Listar", "request": { "method": "GET", "url": "{{baseUrl}}/aeronaves" } },
+						{ "name": "Criar", "request": { "method": "POST", "body": { "mode": "raw", "raw": "{\n    \"nome\": \"PR-NEW\",\n    \"modeloAeronaveId\": 1\n}", "options": { "json": { "language": "json" } } }, "url": "{{baseUrl}}/aeronaves" } }
+					]
+				},
+				{
+					"name": "Missões",
+					"item": [
+						{ "name": "Listar", "request": { "method": "GET", "url": "{{baseUrl}}/missoes" } },
+						{ "name": "Criar", "request": { "method": "POST", "body": { "mode": "raw", "raw": "{\n    \"nome\": \"MISSÃO TESTE\",\n    \"cursoId\": 1\n}", "options": { "json": { "language": "json" } } }, "url": "{{baseUrl}}/missoes" } }
+					]
+				},
+				{
+					"name": "Slots (Agendamentos)",
+					"item": [
+						{ "name": "Listar", "request": { "method": "GET", "url": "{{baseUrl}}/slots" } },
+						{ "name": "Criar", "request": { "method": "POST", "body": { "mode": "raw", "raw": "{\n    \"statusSlotId\": 1,\n    \"aeronaveId\": 1,\n    \"alunoId\": 1,\n    \"missaoId\": 1\n}", "options": { "json": { "language": "json" } } }, "url": "{{baseUrl}}/slots" } }
+					]
+				},
+				{
+					"name": "Restrições",
+					"item": [
+						{ "name": "Listar", "request": { "method": "GET", "url": "{{baseUrl}}/restricoes" } },
+						{ "name": "Criar", "request": { "method": "POST", "body": { "mode": "raw", "raw": "{\n    \"invaId\": 1,\n    \"observacao\": \"Não voar em dias nublados\",\n    \"isInva\": true\n}", "options": { "json": { "language": "json" } } }, "url": "{{baseUrl}}/restricoes" } }
+					]
+				},
+				{
+					"name": "Estruturais (Bases, Cursos, etc)",
+					"item": [
+						{ "name": "Bases", "request": { "method": "GET", "url": "{{baseUrl}}/bases" } },
+						{ "name": "Situação Invas", "request": { "method": "GET", "url": "{{baseUrl}}/situacao-invas" } },
+						{ "name": "Modelo Aeronaves", "request": { "method": "GET", "url": "{{baseUrl}}/modelo-aeronaves" } },
+						{ "name": "Status Slots", "request": { "method": "GET", "url": "{{baseUrl}}/status-slots" } },
+						{ "name": "Cursos", "request": { "method": "GET", "url": "{{baseUrl}}/cursos" } }
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+			}
+		}
+	],
+	"variable": [
+		{ "key": "baseUrl", "value": "http://localhost:3333/api/v1" },
+		{ "key": "token", "value": "insira_o_token_aqui" }
+	]
+}
