@@ -32,6 +32,9 @@ export default class Restricao extends BaseModel {
   declare observacao: string | null
 
   @column()
+  declare nome: string | null
+
+  @column()
   declare isInva: boolean
 
   @column()

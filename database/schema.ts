@@ -65,8 +65,10 @@ export class AuthAccessTokenSchema extends BaseModel {
 }
 
 export class BarraSchema extends BaseModel {
-  static $columns = ['createdAt', 'id', 'modeloAeronaveId', 'nome', 'updatedAt'] as const
+  static $columns = ['baseId', 'createdAt', 'id', 'modeloAeronaveId', 'nome', 'updatedAt'] as const
   $columns = BarraSchema.$columns
+  @column()
+  declare baseId: number | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column({ isPrimary: true })
@@ -153,7 +155,7 @@ export class ModelosAeronaveSchema extends BaseModel {
 }
 
 export class RestricoeSchema extends BaseModel {
-  static $columns = ['aeronaveId', 'alunoId', 'createdAt', 'id', 'invaId', 'isAeronave', 'isAluno', 'isAlunoInva', 'isInva', 'isMissao', 'isModelo', 'missaoId', 'modeloAeronaveId', 'observacao', 'updatedAt'] as const
+  static $columns = ['aeronaveId', 'alunoId', 'createdAt', 'id', 'invaId', 'isAeronave', 'isAluno', 'isAlunoInva', 'isInva', 'isMissao', 'isModelo', 'missaoId', 'modeloAeronaveId', 'nome', 'observacao', 'updatedAt'] as const
   $columns = RestricoeSchema.$columns
   @column()
   declare aeronaveId: number | null
@@ -181,6 +183,8 @@ export class RestricoeSchema extends BaseModel {
   declare missaoId: number | null
   @column()
   declare modeloAeronaveId: number | null
+  @column()
+  declare nome: string | null
   @column()
   declare observacao: string | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })

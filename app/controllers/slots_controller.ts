@@ -48,7 +48,16 @@ export default class SlotsController {
     const data = request.only(['statusSlotId', 'aeronaveId', 'invaId', 'alunoId', 'missaoId', 'barraId', 'dataHora', 'observacoes'])
     slot.merge(data)
     await slot.save()
-    return response.json(slot)
+    // Recarregar o slot para garantir que as relações estejam atualizadas
+    const slotUpdated = await Slot.query()
+      .where('id', params.id)
+      .preload('statusSlot')
+      .preload('aeronave', (query) => query.preload('modeloAeronave'))
+      .preload('aluno')
+      .preload('missao', (query) => query.preload('curso'))
+      .preload('barra', (query) => query.preload('modeloAeronave'))
+      .firstOrFail()
+    return response.json(slotUpdated)
   }
 
   async destroy({ params, response }: HttpContext) {
@@ -117,6 +126,7 @@ export default class SlotsController {
         const missaoName = normalize(slotData.missao)
         const barraName = normalize(slotData.barra)
         const statusName = normalize(slotData.st)
+        const observacoes = normalize(slotData.obs)
 
         let aluno = alunoName ? await Aluno.query().where('nome', alunoName).first() : null
         if (alunoName && !aluno) {
@@ -183,9 +193,8 @@ export default class SlotsController {
           missaoId: missao ? missao.id : null,
           statusSlotId: statusSlot.id,
           barraId: barra.id,
-          observacoes: slotData.observacoes || null
+          observacoes: observacoes || null
         }
-        console.log(slotPayload)
 
         if (slot) {
           // Atualizar slot existente

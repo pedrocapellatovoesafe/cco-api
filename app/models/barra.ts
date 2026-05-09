@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, belongsTo, hasMany } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import ModeloAeronave from '#models/modelo_aeronave'
+import Base from '#models/base'
 import Restricao from '#models/restricao'
 
 export default class Barra extends BaseModel {
@@ -12,6 +13,9 @@ export default class Barra extends BaseModel {
 
   @column()
   declare nome: string
+
+  @column()
+  declare baseId: number | null
 
   @column({ serializeAs: null })
   declare modeloAeronaveId: number
@@ -26,6 +30,11 @@ export default class Barra extends BaseModel {
     foreignKey: 'modeloAeronaveId',
   })
   declare modeloAeronave: BelongsTo<typeof ModeloAeronave>
+
+  @belongsTo(() => Base, {
+    foreignKey: 'baseId',
+  })
+  declare base: BelongsTo<typeof Base>
 
   @hasMany(() => Restricao, {
     foreignKey: 'barraId',

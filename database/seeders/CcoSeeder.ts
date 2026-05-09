@@ -125,24 +125,25 @@ export default class CcoSeeder extends BaseSeeder {
 
     // 8. Barras
     const dadosBarras = [
-      { nome: 'MC-01 (SJK) #1', modelo: 'MC01' },
-      { nome: 'MC01 (SJK) (DIURNO) #2', modelo: 'MC01' },
-      { nome: 'MC01 - BACKUP #3', modelo: 'MC01' },
-      { nome: 'SIRA (SJK) #4', modelo: 'SIRA' },
-      { nome: 'SIM PCATD - SBSJ #5', modelo: 'SM PCATD' },
-      { nome: 'SM AATD SJK #6', modelo: 'SM AATD' },
-      { nome: 'SIM AATD CPQ #7', modelo: 'SM AATD' },
-      { nome: 'SIM PCATD - SDAM #8', modelo: 'SM PCATD' },
-      { nome: 'COLT #11', modelo: 'COLT' },
-      { nome: 'COLT DIURNO #12', modelo: 'COLT' },
-      { nome: 'MC01 (CPQ) #13', modelo: 'MC01' }
+      { nome: 'MC-01 (SJK) #1', modelo: 'MC01', baseId: 1 },
+      { nome: 'MC01 (SJK) (DIURNO) #2', modelo: 'MC01', baseId: 1 },
+      { nome: 'MC01 - BACKUP #3', modelo: 'MC01', baseId: 1 },
+      { nome: 'SIRA (SJK) #4', modelo: 'SIRA', baseId: 1 },
+      { nome: 'SIM PCATD - SBSJ #5', modelo: 'SM PCATD', baseId: 1 },
+      { nome: 'SM AATD SJK #6', modelo: 'SM AATD', baseId: 1 },
+      { nome: 'SIM AATD CPQ #7', modelo: 'SM AATD', baseId: 2 },
+      { nome: 'SIM PCATD - SDAM #8', modelo: 'SM PCATD', baseId: 2 },
+      { nome: 'COLT #11', modelo: 'COLT', baseId: 2 },
+      { nome: 'COLT DIURNO #12', modelo: 'COLT', baseId: 2 },
+      { nome: 'MC01 (CPQ) #13', modelo: 'MC01', baseId: 2 }
     ]
 
-    for (const { nome, modelo } of dadosBarras) {
+    for (const { nome, modelo, baseId } of dadosBarras) {
       const modeloInstance = await ModeloAeronave.findByOrFail('nome', modelo)
       await Barra.updateOrCreate({ nome }, {
         nome,
         modeloAeronaveId: modeloInstance.id,
+        baseId
       })
     }
 }

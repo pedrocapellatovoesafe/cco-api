@@ -25,14 +25,14 @@ export default class RestricoesController {
   }
 
   async store({ request, response }: HttpContext) {
-    const data = request.only(['invaId', 'aeronaveId', 'modeloAeronaveId', 'alunoId', 'missaoId', 'observacao', 'isInva', 'isAluno', 'isAlunoInva', 'isModelo', 'isAeronave', 'isMissao'])
+    const data = request.only(['invaId', 'nome', 'aeronaveId', 'modeloAeronaveId', 'alunoId', 'missaoId', 'observacao', 'isInva', 'isAluno', 'isAlunoInva', 'isModelo', 'isAeronave', 'isMissao'])
     const restricao = await Restricao.create(data)
     return response.json(restricao)
   }
 
   async update({ params, request, response }: HttpContext) {
     const restricao = await Restricao.findOrFail(params.id)
-    const data = request.only(['invaId', 'aeronaveId', 'modeloAeronaveId', 'alunoId', 'missaoId', 'observacao', 'isInva', 'isAluno', 'isAlunoInva', 'isModelo', 'isAeronave', 'isMissao'])
+    const data = request.only(['invaId', 'nome', 'aeronaveId', 'modeloAeronaveId', 'alunoId', 'missaoId', 'observacao', 'isInva', 'isAluno', 'isAlunoInva', 'isModelo', 'isAeronave', 'isMissao'])
     restricao.merge(data)
     await restricao.save()
     return response.json(restricao)
