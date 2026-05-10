@@ -50,12 +50,32 @@ export default class EscalaTrabalhosController {
 
   async import({ request, response }: HttpContext) {
     const data = request.input('escalas')
-    
+
     if (!Array.isArray(data)) {
-      return response.badRequest({ message: 'O corpo da requisição deve conter um array de escalas no campo "escalas"' })
+      return response.badRequest({
+        message: 'O corpo da requisição deve conter um array de escalas no campo "escalas"',
+      })
     }
 
-    const escalas = await EscalaTrabalho.createMany(data)
-    return response.json(escalas)
+    const results: EscalaTrabalho[] = []
+
+    for (const item of data) {
+      // Procura uma escala existente para o mesmo dia, período e instrutor
+      // Se encontrar, atualiza. Se não, cria uma nova.
+      const escala = await EscalaTrabalho.updateOrCreate(
+        {
+          data: item.data,
+          periodo: item.periodo,
+          invaId: item.invaId,
+        },
+        {
+          tipoDisponibilidadeId: item.tipoDisponibilidadeId,
+          motivo: item.motivo,
+        }
+      )
+      results.push(escala)
+    }
+
+    return response.json(results)
   }
 }

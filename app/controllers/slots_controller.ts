@@ -281,7 +281,6 @@ export default class SlotsController {
             action: 'created',
             slot: slot.serialize()
           })
-          console.log(`Slot criado: ${slot.id} para dataHora ${dataHoraUtc.toSQL()}`)
         }
       } catch (e) {
         errors.push({
