@@ -2,8 +2,20 @@ import Inva from '#models/inva'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class InvasController {
-  async index({ response }: HttpContext) {
-    const invas = await Inva.query().preload('situacaoInva').preload('base')
+  async index({ request, response }: HttpContext) {
+    const month = request.input('mes')
+
+    const query = Inva.query()
+      .preload('situacaoInva')
+      .preload('base')
+      .preload('escalas', (escalasQuery) => {
+        escalasQuery.preload('tipoDisponibilidade')
+        if (month) {
+          escalasQuery.whereRaw("strftime('%Y-%m', data) = ?", [month])
+        }
+      })
+
+    const invas = await query
     return response.json(invas)
   }
 
@@ -12,6 +24,9 @@ export default class InvasController {
       .where('id', params.id)
       .preload('situacaoInva')
       .preload('base')
+      .preload('escalas', (escalasQuery) => {
+        escalasQuery.preload('tipoDisponibilidade')
+      })
       .firstOrFail()
     return response.json(inva)
   }

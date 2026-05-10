@@ -85,6 +85,21 @@ export type ScannedRoutes = {
     'restricoes.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'restricoes.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'restricoes.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'tipo_disponibilidades.index': { paramsTuple?: []; params?: {} }
+    'tipo_disponibilidades.create': { paramsTuple?: []; params?: {} }
+    'tipo_disponibilidades.store': { paramsTuple?: []; params?: {} }
+    'tipo_disponibilidades.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'tipo_disponibilidades.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'tipo_disponibilidades.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'tipo_disponibilidades.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'escala_trabalhos.import': { paramsTuple?: []; params?: {} }
+    'escala_trabalhos.index': { paramsTuple?: []; params?: {} }
+    'escala_trabalhos.create': { paramsTuple?: []; params?: {} }
+    'escala_trabalhos.store': { paramsTuple?: []; params?: {} }
+    'escala_trabalhos.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'escala_trabalhos.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'escala_trabalhos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'escala_trabalhos.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'slots.index': { paramsTuple?: []; params?: {} }
     'slots.store': { paramsTuple?: []; params?: {} }
     'slots.import': { paramsTuple?: []; params?: {} }
@@ -145,6 +160,14 @@ export type ScannedRoutes = {
     'restricoes.create': { paramsTuple?: []; params?: {} }
     'restricoes.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'restricoes.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'tipo_disponibilidades.index': { paramsTuple?: []; params?: {} }
+    'tipo_disponibilidades.create': { paramsTuple?: []; params?: {} }
+    'tipo_disponibilidades.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'tipo_disponibilidades.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'escala_trabalhos.index': { paramsTuple?: []; params?: {} }
+    'escala_trabalhos.create': { paramsTuple?: []; params?: {} }
+    'escala_trabalhos.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'escala_trabalhos.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'slots.index': { paramsTuple?: []; params?: {} }
     'slots.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.index': { paramsTuple?: []; params?: {} }
@@ -198,6 +221,14 @@ export type ScannedRoutes = {
     'restricoes.create': { paramsTuple?: []; params?: {} }
     'restricoes.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'restricoes.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'tipo_disponibilidades.index': { paramsTuple?: []; params?: {} }
+    'tipo_disponibilidades.create': { paramsTuple?: []; params?: {} }
+    'tipo_disponibilidades.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'tipo_disponibilidades.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'escala_trabalhos.index': { paramsTuple?: []; params?: {} }
+    'escala_trabalhos.create': { paramsTuple?: []; params?: {} }
+    'escala_trabalhos.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'escala_trabalhos.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'slots.index': { paramsTuple?: []; params?: {} }
     'slots.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.index': { paramsTuple?: []; params?: {} }
@@ -220,6 +251,9 @@ export type ScannedRoutes = {
     'invas.store': { paramsTuple?: []; params?: {} }
     'alunos.store': { paramsTuple?: []; params?: {} }
     'restricoes.store': { paramsTuple?: []; params?: {} }
+    'tipo_disponibilidades.store': { paramsTuple?: []; params?: {} }
+    'escala_trabalhos.import': { paramsTuple?: []; params?: {} }
+    'escala_trabalhos.store': { paramsTuple?: []; params?: {} }
     'slots.store': { paramsTuple?: []; params?: {} }
     'slots.import': { paramsTuple?: []; params?: {} }
     'barras.store': { paramsTuple?: []; params?: {} }
@@ -236,6 +270,8 @@ export type ScannedRoutes = {
     'invas.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'alunos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'restricoes.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'tipo_disponibilidades.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'escala_trabalhos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'slots.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
@@ -251,6 +287,8 @@ export type ScannedRoutes = {
     'invas.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'alunos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'restricoes.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'tipo_disponibilidades.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'escala_trabalhos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   DELETE: {
@@ -265,6 +303,8 @@ export type ScannedRoutes = {
     'invas.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'alunos.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'restricoes.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'tipo_disponibilidades.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'escala_trabalhos.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'slots.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }

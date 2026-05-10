@@ -51,6 +51,10 @@ router
     router.resource('invas', controllers.Invas)
     router.resource('alunos', controllers.Alunos)
     router.resource('restricoes', controllers.Restricoes)
+    router.resource('tipo-disponibilidades', controllers.TipoDisponibilidades)
+    
+    router.post('escala-trabalhos/import', [controllers.EscalaTrabalhos, 'import'])
+    router.resource('escala-trabalhos', controllers.EscalaTrabalhos)
 }).prefix('/api/v1').use(middleware.auth())
 
     // Custom slot import route

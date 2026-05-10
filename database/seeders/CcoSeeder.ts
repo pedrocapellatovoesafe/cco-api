@@ -10,6 +10,7 @@ import Missao from '#models/missao'
 import Inva from '#models/inva'
 import Barra from '#models/barra'
 import Aluno from '#models/aluno'
+import TipoDisponibilidade from '#models/tipo_disponibilidade'
 import hash from '@adonisjs/core/services/hash'
 
 export default class CcoSeeder extends BaseSeeder {
@@ -93,14 +94,6 @@ export default class CcoSeeder extends BaseSeeder {
       { nome: 'DANIEL BRUM', situacao: 'eventual', base: 'SJK' },
       { nome: 'MAYSON DE VICENTE DOS SANTOS', situacao: 'eventual', base: 'SJK' },
       { nome: 'LUAN SANTANA', situacao: 'eventual', base: 'SJK' },
-      { nome: 'CAIQUE DUARTE', situacao: 'solo', base: 'SJK' },
-      { nome: 'RODRIGO NASCIMENTO', situacao: 'solo', base: 'SJK' },
-      { nome: 'RODRIGO MELO', situacao: 'solo', base: 'SJK' },
-      { nome: 'PEDRO LUCAS', situacao: 'solo', base: 'SJK' },
-      { nome: 'EDUARDO RAHMAN', situacao: 'solo', base: 'SJK' },
-      { nome: 'VICTOR DE PINHO', situacao: 'solo', base: 'SJK' },
-      { nome: 'ERIK SUZUKI', situacao: 'solo', base: 'SJK' },
-      { nome: 'WILLARD QUEIROZ', situacao: 'solo', base: 'SJK' },
       { nome: 'ABBEGG', situacao: 'clt_full', base: 'CPQ' },
       { nome: 'IGOR', situacao: 'clt_part', base: 'CPQ' },
       { nome: 'PEDRO SALES', situacao: 'clt_part', base: 'CPQ' },
@@ -109,6 +102,14 @@ export default class CcoSeeder extends BaseSeeder {
       { nome: 'IAN FRANCISCO GAIECKI OLIVEIRA', situacao: 'eventual', base: 'CPQ' },
       { nome: 'JOSÉ FELIPE DE CAMARGO BARROS NETO', situacao: 'eventual', base: 'CPQ' },
       { nome: 'LUIZ QUAGLIA', situacao: 'eventual', base: 'CPQ' },
+      { nome: 'CAIQUE DUARTE', situacao: 'solo', base: 'SJK' },
+      { nome: 'RODRIGO NASCIMENTO', situacao: 'solo', base: 'SJK' },
+      { nome: 'RODRIGO MELO', situacao: 'solo', base: 'SJK' },
+      { nome: 'PEDRO LUCAS', situacao: 'solo', base: 'SJK' },
+      { nome: 'EDUARDO RAHMAN', situacao: 'solo', base: 'SJK' },
+      { nome: 'VICTOR DE PINHO', situacao: 'solo', base: 'SJK' },
+      { nome: 'ERIK SUZUKI', situacao: 'solo', base: 'SJK' },
+      { nome: 'WILLARD QUEIROZ', situacao: 'solo', base: 'SJK' },
       { nome: 'STEPHANIE BRUNO', situacao: 'solo', base: 'CPQ' },
       { nome: 'THEO SILVA', situacao: 'solo', base: 'CPQ' },
       { nome: 'JHONY BINATTO', situacao: 'solo', base: 'CPQ' },
@@ -150,5 +151,24 @@ export default class CcoSeeder extends BaseSeeder {
         baseId
       })
     }
+
+    // 9. Tipo de disponibilidade
+    const tipos = [
+      'Disponivel',
+      'Folga Regular',
+      'Folga Social',
+      'Sobreaviso',
+      'Treinamento',
+      'Férias',
+      'Banco de Horas',
+      'Operações',
+      'Trabalho Externo',
+      'Dispensa Médica',
+      'Não Especificado',
+    ]
+
+    for (const nome of tipos) {
+      await TipoDisponibilidade.updateOrCreate({ nome }, { nome })
+    } 
 }
 }

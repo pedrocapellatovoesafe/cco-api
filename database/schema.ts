@@ -107,6 +107,27 @@ export class CursoSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class EscalaTrabalhoSchema extends BaseModel {
+  static $columns = ['createdAt', 'data', 'id', 'invaId', 'motivo', 'periodo', 'tipoDisponibilidadeId', 'updatedAt'] as const
+  $columns = EscalaTrabalhoSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column.date()
+  declare data: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare invaId: number
+  @column()
+  declare motivo: string | null
+  @column()
+  declare periodo: string
+  @column()
+  declare tipoDisponibilidadeId: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class InvaSchema extends BaseModel {
   static $columns = ['baseId', 'celular', 'createdAt', 'id', 'nome', 'situacaoInvaId', 'updatedAt'] as const
   $columns = InvaSchema.$columns
@@ -238,6 +259,19 @@ export class StatusSlotSchema extends BaseModel {
   $columns = StatusSlotSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare nome: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class TipoDisponibilidadeSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'nome', 'updatedAt'] as const
+  $columns = TipoDisponibilidadeSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
   @column({ isPrimary: true })
   declare id: number
   @column()

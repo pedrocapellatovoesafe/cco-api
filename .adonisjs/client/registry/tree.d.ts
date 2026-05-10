@@ -117,6 +117,25 @@ export interface ApiDefinition {
     update: typeof routes['restricoes.update']
     destroy: typeof routes['restricoes.destroy']
   }
+  tipoDisponibilidades: {
+    index: typeof routes['tipo_disponibilidades.index']
+    create: typeof routes['tipo_disponibilidades.create']
+    store: typeof routes['tipo_disponibilidades.store']
+    show: typeof routes['tipo_disponibilidades.show']
+    edit: typeof routes['tipo_disponibilidades.edit']
+    update: typeof routes['tipo_disponibilidades.update']
+    destroy: typeof routes['tipo_disponibilidades.destroy']
+  }
+  escalaTrabalhos: {
+    import: typeof routes['escala_trabalhos.import']
+    index: typeof routes['escala_trabalhos.index']
+    create: typeof routes['escala_trabalhos.create']
+    store: typeof routes['escala_trabalhos.store']
+    show: typeof routes['escala_trabalhos.show']
+    edit: typeof routes['escala_trabalhos.edit']
+    update: typeof routes['escala_trabalhos.update']
+    destroy: typeof routes['escala_trabalhos.destroy']
+  }
   slots: {
     index: typeof routes['slots.index']
     store: typeof routes['slots.store']

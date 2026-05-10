@@ -10,6 +10,7 @@ export const controllers = {
   Barras: () => import('#controllers/barras_controller'),
   Bases: () => import('#controllers/bases_controller'),
   Cursos: () => import('#controllers/cursos_controller'),
+  EscalaTrabalhos: () => import('#controllers/escala_trabalhos_controller'),
   Invas: () => import('#controllers/invas_controller'),
   Missoes: () => import('#controllers/missoes_controller'),
   ModeloAeronaves: () => import('#controllers/modelo_aeronaves_controller'),
@@ -19,5 +20,6 @@ export const controllers = {
   SituacaoInvas: () => import('#controllers/situacao_invas_controller'),
   Slots: () => import('#controllers/slots_controller'),
   StatusSlots: () => import('#controllers/status_slots_controller'),
+  TipoDisponibilidades: () => import('#controllers/tipo_disponibilidades_controller'),
   Users: () => import('#controllers/users_controller'),
 }

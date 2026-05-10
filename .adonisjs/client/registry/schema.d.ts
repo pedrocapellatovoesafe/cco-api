@@ -979,6 +979,186 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/restricoes_controller').default['destroy']>>>
     }
   }
+  'tipo_disponibilidades.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/tipo-disponibilidades'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/tipo_disponibilidades_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/tipo_disponibilidades_controller').default['index']>>>
+    }
+  }
+  'tipo_disponibilidades.create': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/tipo-disponibilidades/create'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/tipo_disponibilidades_controller').default['create']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/tipo_disponibilidades_controller').default['create']>>>
+    }
+  }
+  'tipo_disponibilidades.store': {
+    methods: ["POST"]
+    pattern: '/api/v1/tipo-disponibilidades'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/tipo_disponibilidades_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/tipo_disponibilidades_controller').default['store']>>>
+    }
+  }
+  'tipo_disponibilidades.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/tipo-disponibilidades/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/tipo_disponibilidades_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/tipo_disponibilidades_controller').default['show']>>>
+    }
+  }
+  'tipo_disponibilidades.edit': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/tipo-disponibilidades/:id/edit'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/tipo_disponibilidades_controller').default['edit']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/tipo_disponibilidades_controller').default['edit']>>>
+    }
+  }
+  'tipo_disponibilidades.update': {
+    methods: ["PUT","PATCH"]
+    pattern: '/api/v1/tipo-disponibilidades/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/tipo_disponibilidades_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/tipo_disponibilidades_controller').default['update']>>>
+    }
+  }
+  'tipo_disponibilidades.destroy': {
+    methods: ["DELETE"]
+    pattern: '/api/v1/tipo-disponibilidades/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/tipo_disponibilidades_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/tipo_disponibilidades_controller').default['destroy']>>>
+    }
+  }
+  'escala_trabalhos.import': {
+    methods: ["POST"]
+    pattern: '/api/v1/escala-trabalhos/import'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['import']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['import']>>>
+    }
+  }
+  'escala_trabalhos.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/escala-trabalhos'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['index']>>>
+    }
+  }
+  'escala_trabalhos.create': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/escala-trabalhos/create'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['create']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['create']>>>
+    }
+  }
+  'escala_trabalhos.store': {
+    methods: ["POST"]
+    pattern: '/api/v1/escala-trabalhos'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['store']>>>
+    }
+  }
+  'escala_trabalhos.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/escala-trabalhos/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['show']>>>
+    }
+  }
+  'escala_trabalhos.edit': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/escala-trabalhos/:id/edit'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['edit']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['edit']>>>
+    }
+  }
+  'escala_trabalhos.update': {
+    methods: ["PUT","PATCH"]
+    pattern: '/api/v1/escala-trabalhos/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['update']>>>
+    }
+  }
+  'escala_trabalhos.destroy': {
+    methods: ["DELETE"]
+    pattern: '/api/v1/escala-trabalhos/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['destroy']>>>
+    }
+  }
   'slots.index': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/slots'

@@ -4,6 +4,7 @@ import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import SituacaoInva from './situacao_inva.js'
 import Restricao from './restricao.js'
 import Base from './base.js'
+import EscalaTrabalho from './escala_trabalho.js'
 
 export default class Inva extends BaseModel {
   public static table = 'invas'
@@ -43,4 +44,9 @@ export default class Inva extends BaseModel {
     foreignKey: 'invaId',
   })
   declare restricoes: HasMany<typeof Restricao>
+
+  @hasMany(() => EscalaTrabalho, {
+    foreignKey: 'invaId',
+  })
+  declare escalas: HasMany<typeof EscalaTrabalho>
 }
