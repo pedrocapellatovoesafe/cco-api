@@ -35,6 +35,9 @@ export default class Slot extends BaseModel {
   @column()
   declare observacoes: string
 
+  @column()
+  declare isChecked: boolean
+
   @column.dateTime({
     serialize: (value: DateTime) => value.toFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
   })

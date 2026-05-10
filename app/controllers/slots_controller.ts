@@ -7,10 +7,21 @@ import Barra from '#models/barra'
 import StatusSlot from '#models/status_slot'
 import type { HttpContext } from '@adonisjs/core/http'
 import { DateTime } from 'luxon'
+import { slotsFilterValidator } from '#validators/slot'
 
 export default class SlotsController {
-  async index({ response }: HttpContext) {
+  async index({ request, response }: HttpContext) {
+    const { startDate, endDate } = await request.validateUsing(slotsFilterValidator)
+
+    const startLocal = DateTime.fromFormat(startDate, 'yyyy-MM-dd', { zone: 'America/Sao_Paulo' }).startOf('day')
+    const start = startLocal.toUTC()
+
+    const end = endDate
+      ? DateTime.fromFormat(endDate, 'yyyy-MM-dd', { zone: 'America/Sao_Paulo' }).endOf('day').toUTC()
+      : startLocal.endOf('day').toUTC()
+
     const slots = await Slot.query()
+      .whereBetween('dataHora', [start.toSQL()!, end.toSQL()!])
       .preload('statusSlot')
       .preload('aeronave', (query) => query.preload('modeloAeronave'))
       .preload('aluno')
@@ -33,24 +44,80 @@ export default class SlotsController {
   }
 
   async store({ request, response }: HttpContext) {
-    const data = request.only(['statusSlotId', 'aeronaveId', 'invaId', 'alunoId', 'missaoId', 'barraId', 'dataHora', 'observacoes'])
+    const data = request.only(['statusSlotId', 'aeronaveId', 'invaId', 'alunoId', 'missaoId', 'barraId', 'dataHora', 'observacoes', 'isChecked'])
     if (data.dataHora) {
-    // 1. Recebe a string e avisa que ela está no fuso de SP/Brasília
-    // 2. Converte para UTC antes de salvar no banco
-    data.dataHora = DateTime.fromFormat(data.dataHora, 'yyyy-MM-dd HH:mm', { zone: 'America/Sao_Paulo' }).toUTC()
+      // 1. Recebe a string e avisa que ela está no fuso de SP/Brasília
+      // 2. Converte para UTC antes de salvar no banco
+      data.dataHora = DateTime.fromFormat(data.dataHora, 'yyyy-MM-dd HH:mm', { zone: 'America/Sao_Paulo' }).toUTC()
+
+      if (data.barraId) {
+        const existingSlot = await Slot.query()
+          .where('barraId', data.barraId)
+          .where('dataHora', data.dataHora.toSQL())
+          .first()
+
+        if (existingSlot) {
+          return response.status(400).json({
+            error: 'Já existe um slot cadastrado para esta barra neste horário.'
+          })
+        }
+      }
     }
     const slot = await Slot.create(data)
     return response.json(slot)
   }
 
   async update({ params, request, response }: HttpContext) {
-    const slot = await Slot.findOrFail(params.id)
-    const data = request.only(['statusSlotId', 'aeronaveId', 'invaId', 'alunoId', 'missaoId', 'barraId', 'dataHora', 'observacoes'])
+    let slot = await Slot.find(params.id)
+    const data = request.only(['statusSlotId', 'aeronaveId', 'invaId', 'alunoId', 'missaoId', 'barraId', 'dataHora', 'observacoes', 'isChecked'])
+
+    if (data.dataHora) {
+      data.dataHora = DateTime.fromFormat(data.dataHora, 'yyyy-MM-dd HH:mm', { zone: 'America/Sao_Paulo' }).toUTC()
+    }
+
+    // Se não encontrou pelo ID, tenta encontrar pela barra e dataHora (únicos)
+    if (!slot) {
+      const barraId = data.barraId
+      const dataHora = data.dataHora
+      if (barraId && dataHora) {
+        slot = await Slot.query()
+          .where('barraId', barraId)
+          .where('dataHora', dataHora.toSQL())
+          .first()
+      }
+    }
+
+    // Se ainda não encontrou, cria um novo objeto
+    if (!slot) {
+      slot = new Slot()
+    }
+
+    // Validação de duplicidade na mesma barra e horário
+    const finalBarraId = data.barraId || slot.barraId
+    const finalDataHora = data.dataHora || slot.dataHora
+
+    if (finalBarraId && finalDataHora) {
+      const query = Slot.query().where('barraId', finalBarraId).where('dataHora', finalDataHora.toSQL())
+
+      if (slot.id) {
+        query.whereNot('id', slot.id)
+      }
+
+      const existingSlot = await query.first()
+
+      if (existingSlot) {
+        return response.status(400).json({
+          error: 'Já existe outro slot cadastrado para esta barra neste horário.'
+        })
+      }
+    }
+
     slot.merge(data)
     await slot.save()
+
     // Recarregar o slot para garantir que as relações estejam atualizadas
     const slotUpdated = await Slot.query()
-      .where('id', params.id)
+      .where('id', slot.id)
       .preload('statusSlot')
       .preload('aeronave', (query) => query.preload('modeloAeronave'))
       .preload('aluno')

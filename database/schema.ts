@@ -205,7 +205,7 @@ export class SituacoesInvaSchema extends BaseModel {
 }
 
 export class SlotSchema extends BaseModel {
-  static $columns = ['aeronaveId', 'alunoId', 'barraId', 'createdAt', 'dataHora', 'id', 'invaId', 'missaoId', 'observacoes', 'statusSlotId', 'updatedAt'] as const
+  static $columns = ['aeronaveId', 'alunoId', 'barraId', 'createdAt', 'dataHora', 'id', 'invaId', 'isChecked', 'missaoId', 'observacoes', 'statusSlotId', 'updatedAt'] as const
   $columns = SlotSchema.$columns
   @column()
   declare aeronaveId: number | null
@@ -221,6 +221,8 @@ export class SlotSchema extends BaseModel {
   declare id: number
   @column()
   declare invaId: number | null
+  @column()
+  declare isChecked: boolean
   @column()
   declare missaoId: number | null
   @column()

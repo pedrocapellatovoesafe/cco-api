@@ -986,9 +986,9 @@ export interface Registry {
       body: {}
       paramsTuple: []
       params: {}
-      query: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/slot').slotsFilterValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['index']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['index']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'slots.store': {
@@ -1013,6 +1013,42 @@ export interface Registry {
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['import']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['import']>>>
+    }
+  }
+  'slots.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/slots/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['show']>>>
+    }
+  }
+  'slots.update': {
+    methods: ["PUT"]
+    pattern: '/api/v1/slots/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['update']>>>
+    }
+  }
+  'slots.destroy': {
+    methods: ["DELETE"]
+    pattern: '/api/v1/slots/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['destroy']>>>
     }
   }
   'barras.index': {

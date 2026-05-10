@@ -510,6 +510,24 @@ const routes = {
     tokens: [{"old":"/api/v1/slots/import","type":0,"val":"api","end":""},{"old":"/api/v1/slots/import","type":0,"val":"v1","end":""},{"old":"/api/v1/slots/import","type":0,"val":"slots","end":""},{"old":"/api/v1/slots/import","type":0,"val":"import","end":""}],
     types: placeholder as Registry['slots.import']['types'],
   },
+  'slots.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/slots/:id',
+    tokens: [{"old":"/api/v1/slots/:id","type":0,"val":"api","end":""},{"old":"/api/v1/slots/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/slots/:id","type":0,"val":"slots","end":""},{"old":"/api/v1/slots/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['slots.show']['types'],
+  },
+  'slots.update': {
+    methods: ["PUT"],
+    pattern: '/api/v1/slots/:id',
+    tokens: [{"old":"/api/v1/slots/:id","type":0,"val":"api","end":""},{"old":"/api/v1/slots/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/slots/:id","type":0,"val":"slots","end":""},{"old":"/api/v1/slots/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['slots.update']['types'],
+  },
+  'slots.destroy': {
+    methods: ["DELETE"],
+    pattern: '/api/v1/slots/:id',
+    tokens: [{"old":"/api/v1/slots/:id","type":0,"val":"api","end":""},{"old":"/api/v1/slots/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/slots/:id","type":0,"val":"slots","end":""},{"old":"/api/v1/slots/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['slots.destroy']['types'],
+  },
   'barras.index': {
     methods: ["GET","HEAD"],
     pattern: '/api/v1/barras',

@@ -121,6 +121,9 @@ export interface ApiDefinition {
     index: typeof routes['slots.index']
     store: typeof routes['slots.store']
     import: typeof routes['slots.import']
+    show: typeof routes['slots.show']
+    update: typeof routes['slots.update']
+    destroy: typeof routes['slots.destroy']
   }
   barras: {
     index: typeof routes['barras.index']

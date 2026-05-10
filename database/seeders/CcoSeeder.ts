@@ -65,8 +65,12 @@ export default class CcoSeeder extends BaseSeeder {
       { nome: 'PS-SFH', modelo: 'MC01' },
       { nome: 'PS-SFI', modelo: 'MC01' },
       { nome: 'PS-SFJ', modelo: 'COLT' },
-      { nome: 'PS-SFL', modelo: 'MC01' },
+      { nome: 'PS-SFL', modelo: 'COLT' },
       { nome: 'PS-SFP', modelo: 'SIRA' },
+      { nome: 'PC-SJK', modelo: 'SM PCATD' },
+      { nome: 'PC-CPQ', modelo: 'SM PCATD' },
+      { nome: 'SM-SJK', modelo: 'SM AATD' },
+      { nome: 'SM-CPQ', modelo: 'SM AATD' },
     ]
     for (const { nome, modelo } of aeronavesData) {
       const modeloInstance = await ModeloAeronave.findByOrFail('nome', modelo)

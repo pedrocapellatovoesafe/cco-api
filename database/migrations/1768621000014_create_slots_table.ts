@@ -14,6 +14,7 @@ export default class extends BaseSchema {
       table.integer('missao_id').unsigned().references('id').inTable('missoes').onDelete('CASCADE')
       table.dateTime('data_hora').nullable()
       table.string('observacoes', 500).defaultTo(null)
+      table.boolean('is_checked').defaultTo(false).notNullable()
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()
     })

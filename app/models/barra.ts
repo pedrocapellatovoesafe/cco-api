@@ -17,8 +17,8 @@ export default class Barra extends BaseModel {
   @column()
   declare baseId: number | null
 
-  @column({ serializeAs: null })
-  declare modeloAeronaveId: number
+  @column()
+  declare modeloAeronaveId: number | null
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

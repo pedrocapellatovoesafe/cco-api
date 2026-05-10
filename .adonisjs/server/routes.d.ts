@@ -88,6 +88,9 @@ export type ScannedRoutes = {
     'slots.index': { paramsTuple?: []; params?: {} }
     'slots.store': { paramsTuple?: []; params?: {} }
     'slots.import': { paramsTuple?: []; params?: {} }
+    'slots.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'slots.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'slots.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.index': { paramsTuple?: []; params?: {} }
     'barras.create': { paramsTuple?: []; params?: {} }
     'barras.store': { paramsTuple?: []; params?: {} }
@@ -143,6 +146,7 @@ export type ScannedRoutes = {
     'restricoes.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'restricoes.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'slots.index': { paramsTuple?: []; params?: {} }
+    'slots.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.index': { paramsTuple?: []; params?: {} }
     'barras.create': { paramsTuple?: []; params?: {} }
     'barras.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -195,6 +199,7 @@ export type ScannedRoutes = {
     'restricoes.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'restricoes.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'slots.index': { paramsTuple?: []; params?: {} }
+    'slots.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.index': { paramsTuple?: []; params?: {} }
     'barras.create': { paramsTuple?: []; params?: {} }
     'barras.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -231,6 +236,7 @@ export type ScannedRoutes = {
     'invas.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'alunos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'restricoes.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'slots.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   PATCH: {
@@ -259,6 +265,7 @@ export type ScannedRoutes = {
     'invas.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'alunos.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'restricoes.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'slots.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }
