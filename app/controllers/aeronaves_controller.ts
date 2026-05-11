@@ -16,14 +16,14 @@ export default class AeronavesController {
   }
 
   async store({ request, response }: HttpContext) {
-    const data = request.only(['nome', 'modeloAeronaveId'])
+    const data = request.only(['nome', 'modeloAeronaveId', 'horasDisponiveis'])
     const aeronave = await Aeronave.create(data)
     return response.json(aeronave)
   }
 
   async update({ params, request, response }: HttpContext) {
     const aeronave = await Aeronave.findOrFail(params.id)
-    const data = request.only(['nome', 'modeloAeronaveId'])
+    const data = request.only(['nome', 'modeloAeronaveId', 'horasDisponiveis'])
     aeronave.merge(data)
     await aeronave.save()
     return response.json(aeronave)

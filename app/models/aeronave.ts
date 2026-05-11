@@ -17,6 +17,9 @@ export default class Aeronave extends BaseModel {
   @column()
   declare modeloAeronaveId: number
 
+  @column()
+  declare horasDisponiveis: number
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
