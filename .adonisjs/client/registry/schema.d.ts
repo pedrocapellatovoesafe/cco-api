@@ -895,6 +895,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/alunos_controller').default['destroy']>>>
     }
   }
+  'restricoes.import': {
+    methods: ["POST"]
+    pattern: '/api/v1/restricoes/import'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/restricoes_controller').default['import']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/restricoes_controller').default['import']>>>
+    }
+  }
   'restricoes.index': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/restricoes'

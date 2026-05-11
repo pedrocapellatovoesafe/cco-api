@@ -450,6 +450,12 @@ const routes = {
     tokens: [{"old":"/api/v1/alunos/:id","type":0,"val":"api","end":""},{"old":"/api/v1/alunos/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/alunos/:id","type":0,"val":"alunos","end":""},{"old":"/api/v1/alunos/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['alunos.destroy']['types'],
   },
+  'restricoes.import': {
+    methods: ["POST"],
+    pattern: '/api/v1/restricoes/import',
+    tokens: [{"old":"/api/v1/restricoes/import","type":0,"val":"api","end":""},{"old":"/api/v1/restricoes/import","type":0,"val":"v1","end":""},{"old":"/api/v1/restricoes/import","type":0,"val":"restricoes","end":""},{"old":"/api/v1/restricoes/import","type":0,"val":"import","end":""}],
+    types: placeholder as Registry['restricoes.import']['types'],
+  },
   'restricoes.index': {
     methods: ["GET","HEAD"],
     pattern: '/api/v1/restricoes',

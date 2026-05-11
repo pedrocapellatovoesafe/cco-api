@@ -43,4 +43,35 @@ export default class RestricoesController {
     await restricao.delete()
     return response.json({ message: 'Restricao deleted' })
   }
+
+  async import({ request, response }: HttpContext) {
+    const data = request.input('restricoes')
+
+    if (!Array.isArray(data)) {
+      return response.badRequest({
+        message: 'O corpo da requisição deve conter um array de restrições no campo "restricoes"',
+      })
+    }
+
+    const restricoesData = data.map((item: any) => {
+      return {
+        invaId: item.invaId,
+        nome: item.nome,
+        aeronaveId: item.aeronaveId,
+        modeloAeronaveId: item.modeloAeronaveId,
+        alunoId: item.alunoId,
+        missaoId: item.missaoId,
+        observacao: item.observacao,
+        isInva: item.isInva,
+        isAluno: item.isAluno,
+        isAlunoInva: item.isAlunoInva,
+        isModelo: item.isModelo,
+        isAeronave: item.isAeronave,
+        isMissao: item.isMissao,
+      }
+    })
+
+    const restricoes = await Restricao.createMany(restricoesData)
+    return response.json(restricoes)
+  }
 }

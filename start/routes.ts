@@ -50,6 +50,7 @@ router
     router.resource('missoes', controllers.Missoes)
     router.resource('invas', controllers.Invas)
     router.resource('alunos', controllers.Alunos)
+    router.post('restricoes/import', [controllers.Restricoes, 'import'])
     router.resource('restricoes', controllers.Restricoes)
     router.resource('tipo-disponibilidades', controllers.TipoDisponibilidades)
     

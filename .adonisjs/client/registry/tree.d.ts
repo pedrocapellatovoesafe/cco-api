@@ -109,6 +109,7 @@ export interface ApiDefinition {
     destroy: typeof routes['alunos.destroy']
   }
   restricoes: {
+    import: typeof routes['restricoes.import']
     index: typeof routes['restricoes.index']
     create: typeof routes['restricoes.create']
     store: typeof routes['restricoes.store']
