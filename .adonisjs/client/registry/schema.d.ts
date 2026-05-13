@@ -755,12 +755,12 @@ export interface Registry {
     methods: ["POST"]
     pattern: '/api/v1/invas'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/inva').createInvaValidator)>>
       paramsTuple: []
       params: {}
-      query: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/inva').createInvaValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/invas_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/invas_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/invas_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'invas.show': {
@@ -791,12 +791,12 @@ export interface Registry {
     methods: ["PUT","PATCH"]
     pattern: '/api/v1/invas/:id'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/inva').updateInvaValidator)>>
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
-      query: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/inva').updateInvaValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/invas_controller').default['update']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/invas_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/invas_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'invas.destroy': {
@@ -839,12 +839,12 @@ export interface Registry {
     methods: ["POST"]
     pattern: '/api/v1/alunos'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/aluno').createAlunoValidator)>>
       paramsTuple: []
       params: {}
-      query: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/aluno').createAlunoValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/alunos_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/alunos_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/alunos_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'alunos.show': {
@@ -875,12 +875,12 @@ export interface Registry {
     methods: ["PUT","PATCH"]
     pattern: '/api/v1/alunos/:id'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/aluno').updateAlunoValidator)>>
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
-      query: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/aluno').updateAlunoValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/alunos_controller').default['update']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/alunos_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/alunos_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'alunos.destroy': {
@@ -935,12 +935,12 @@ export interface Registry {
     methods: ["POST"]
     pattern: '/api/v1/restricoes'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/restricao').createRestricaoValidator)>>
       paramsTuple: []
       params: {}
-      query: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/restricao').createRestricaoValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/restricoes_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/restricoes_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/restricoes_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'restricoes.show': {
@@ -971,12 +971,12 @@ export interface Registry {
     methods: ["PUT","PATCH"]
     pattern: '/api/v1/restricoes/:id'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/restricao').updateRestricaoValidator)>>
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
-      query: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/restricao').updateRestricaoValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/restricoes_controller').default['update']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/restricoes_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/restricoes_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'restricoes.destroy': {
@@ -1115,12 +1115,12 @@ export interface Registry {
     methods: ["POST"]
     pattern: '/api/v1/escala-trabalhos'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/escala_trabalho').createEscalaTrabalhoValidator)>>
       paramsTuple: []
       params: {}
-      query: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/escala_trabalho').createEscalaTrabalhoValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'escala_trabalhos.show': {
@@ -1151,12 +1151,12 @@ export interface Registry {
     methods: ["PUT","PATCH"]
     pattern: '/api/v1/escala-trabalhos/:id'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/escala_trabalho').updateEscalaTrabalhoValidator)>>
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
-      query: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/escala_trabalho').updateEscalaTrabalhoValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['update']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'escala_trabalhos.destroy': {
@@ -1187,12 +1187,12 @@ export interface Registry {
     methods: ["POST"]
     pattern: '/api/v1/slots'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/slot').createSlotValidator)>>
       paramsTuple: []
       params: {}
-      query: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/slot').createSlotValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'slots.import': {
@@ -1223,12 +1223,12 @@ export interface Registry {
     methods: ["PUT"]
     pattern: '/api/v1/slots/:id'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/slot').updateSlotValidator)>>
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
-      query: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/slot').updateSlotValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['update']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/slots_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'slots.destroy': {

@@ -13,11 +13,11 @@ export default class Aluno extends BaseModel {
   @column()
   declare nome: string
 
-  @column()
-  declare cpf: string
+  @column({ serializeAs: null })
+  declare cpf: string | null
 
-  @column()
-  declare celular: string
+  @column({ serializeAs: null })
+  declare celular: string | null
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

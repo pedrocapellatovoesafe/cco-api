@@ -1,5 +1,6 @@
 import Aluno from '#models/aluno'
 import type { HttpContext } from '@adonisjs/core/http'
+import { createAlunoValidator, updateAlunoValidator } from '#validators/aluno'
 
 export default class AlunosController {
   async index({ response }: HttpContext) {
@@ -13,14 +14,14 @@ export default class AlunosController {
   }
 
   async store({ request, response }: HttpContext) {
-    const data = request.only(['nome', 'cpf', 'celular'])
+    const data = await request.validateUsing(createAlunoValidator)
     const aluno = await Aluno.create(data)
     return response.json(aluno)
   }
 
   async update({ params, request, response }: HttpContext) {
     const aluno = await Aluno.findOrFail(params.id)
-    const data = request.only(['nome', 'cpf', 'celular'])
+    const data = await request.validateUsing(updateAlunoValidator)
     aluno.merge(data)
     await aluno.save()
     return response.json(aluno)

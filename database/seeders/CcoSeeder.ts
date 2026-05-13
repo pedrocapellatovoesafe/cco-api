@@ -4,28 +4,28 @@ import SituacaoInva from '#models/situacao_inva'
 import ModeloAeronave from '#models/modelo_aeronave'
 import Base from '#models/base'
 import StatusSlot from '#models/status_slot'
-import Curso from '#models/curso'
 import Aeronave from '#models/aeronave'
-import Missao from '#models/missao'
 import Inva from '#models/inva'
 import Barra from '#models/barra'
 import Aluno from '#models/aluno'
 import TipoDisponibilidade from '#models/tipo_disponibilidade'
-import hash from '@adonisjs/core/services/hash'
+import env from '#start/env'
 
 export default class CcoSeeder extends BaseSeeder {
   async run() {
+    const defaultPassword = env.get('SEED_USER_PASSWORD')
+
     // 1. Usuários
     await User.updateOrCreate({ email: 'pedro.capellato@voesafe.com.br' }, {
       fullName: 'Pedro Henrique Capellato Jardim',
       email: 'pedro.capellato@voesafe.com.br',
-      password: 'Safe1234%'
+      password: defaultPassword
     })
 
     await User.updateOrCreate({ email: 'cco@voesafe.com.br' }, {
       fullName: 'CCO',
       email: 'cco@voesafe.com.br',
-      password: 'Safe1234%'
+      password: defaultPassword
     })
 
     // 2. Situações Inva
@@ -53,11 +53,14 @@ export default class CcoSeeder extends BaseSeeder {
     }
 
     // 6.Aluno
-    await Aluno.updateOrCreate({
+    await Aluno.updateOrCreate(
+      { nome: 'ALUNO TESTE' },
+      {
         nome: 'ALUNO TESTE',
         cpf: '12345678901',
         celular: '12988888888'
-    })
+      }
+    )
 
     // 7. Aeronaves
     const aeronavesData = [

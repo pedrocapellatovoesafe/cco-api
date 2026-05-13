@@ -1,7 +1,14 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import EscalaTrabalho from '#models/escala_trabalho'
+import { createEscalaTrabalhoValidator, updateEscalaTrabalhoValidator } from '#validators/escala_trabalho'
+import EscalaTrabalhoService from '#services/escala_trabalho_service'
+import { inject } from '@adonisjs/core'
+import { DateTime } from 'luxon'
 
+@inject()
 export default class EscalaTrabalhosController {
+  constructor(protected escalaTrabalhoService: EscalaTrabalhoService) {}
+
   async index({ request, response }: HttpContext) {
     const month = request.input('mes')
 
@@ -29,15 +36,23 @@ export default class EscalaTrabalhosController {
   }
 
   async store({ request, response }: HttpContext) {
-    const data = request.only(['data', 'periodo', 'tipoDisponibilidadeId', 'invaId', 'motivo'])
-    const escala = await EscalaTrabalho.create(data)
+    const data = await request.validateUsing(createEscalaTrabalhoValidator)
+    const payload = {
+      ...data,
+      data: DateTime.fromFormat(data.data, 'yyyy-MM-dd')
+    }
+    const escala = await EscalaTrabalho.create(payload as any)
     return response.json(escala)
   }
 
   async update({ params, request, response }: HttpContext) {
     const escala = await EscalaTrabalho.findOrFail(params.id)
-    const data = request.only(['data', 'periodo', 'tipoDisponibilidadeId', 'invaId', 'motivo'])
-    escala.merge(data)
+    const data = await request.validateUsing(updateEscalaTrabalhoValidator)
+    const payload = {
+      ...data,
+      data: data.data ? DateTime.fromFormat(data.data, 'yyyy-MM-dd') : undefined
+    }
+    escala.merge(payload as any)
     await escala.save()
     return response.json(escala)
   }
@@ -57,25 +72,7 @@ export default class EscalaTrabalhosController {
       })
     }
 
-    const results: EscalaTrabalho[] = []
-
-    for (const item of data) {
-      // Procura uma escala existente para o mesmo dia, período e instrutor
-      // Se encontrar, atualiza. Se não, cria uma nova.
-      const escala = await EscalaTrabalho.updateOrCreate(
-        {
-          data: item.data,
-          periodo: item.periodo,
-          invaId: item.invaId,
-        },
-        {
-          tipoDisponibilidadeId: item.tipoDisponibilidadeId,
-          motivo: item.motivo,
-        }
-      )
-      results.push(escala)
-    }
-
+    const results = await this.escalaTrabalhoService.import(data)
     return response.json(results)
   }
 }

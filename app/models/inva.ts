@@ -15,7 +15,7 @@ export default class Inva extends BaseModel {
   @column()
   declare nome: string
 
-  @column()
+  @column({ serializeAs: null })
   declare celular: string
 
   @column()

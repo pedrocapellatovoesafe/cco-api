@@ -1,7 +1,13 @@
 import Restricao from '#models/restricao'
 import type { HttpContext } from '@adonisjs/core/http'
+import { createRestricaoValidator, updateRestricaoValidator } from '#validators/restricao'
+import RestricaoService from '#services/restricao_service'
+import { inject } from '@adonisjs/core'
 
+@inject()
 export default class RestricoesController {
+  constructor(protected restricaoService: RestricaoService) {}
+
   async index({ response }: HttpContext) {
     const restricoes = await Restricao.query()
       .preload('inva', (query) => query.preload('situacaoInva'))
@@ -25,14 +31,14 @@ export default class RestricoesController {
   }
 
   async store({ request, response }: HttpContext) {
-    const data = request.only(['invaId', 'nome', 'aeronaveId', 'modeloAeronaveId', 'alunoId', 'missaoId', 'observacao', 'isInva', 'isAluno', 'isAlunoInva', 'isModelo', 'isAeronave', 'isMissao'])
+    const data = await request.validateUsing(createRestricaoValidator)
     const restricao = await Restricao.create(data)
     return response.json(restricao)
   }
 
   async update({ params, request, response }: HttpContext) {
     const restricao = await Restricao.findOrFail(params.id)
-    const data = request.only(['invaId', 'nome', 'aeronaveId', 'modeloAeronaveId', 'alunoId', 'missaoId', 'observacao', 'isInva', 'isAluno', 'isAlunoInva', 'isModelo', 'isAeronave', 'isMissao'])
+    const data = await request.validateUsing(updateRestricaoValidator)
     restricao.merge(data)
     await restricao.save()
     return response.json(restricao)
@@ -53,25 +59,7 @@ export default class RestricoesController {
       })
     }
 
-    const restricoesData = data.map((item: any) => {
-      return {
-        invaId: item.invaId,
-        nome: item.nome,
-        aeronaveId: item.aeronaveId,
-        modeloAeronaveId: item.modeloAeronaveId,
-        alunoId: item.alunoId,
-        missaoId: item.missaoId,
-        observacao: item.observacao,
-        isInva: item.isInva,
-        isAluno: item.isAluno,
-        isAlunoInva: item.isAlunoInva,
-        isModelo: item.isModelo,
-        isAeronave: item.isAeronave,
-        isMissao: item.isMissao,
-      }
-    })
-
-    const restricoes = await Restricao.createMany(restricoesData)
+    const restricoes = await this.restricaoService.import(data)
     return response.json(restricoes)
   }
 }

@@ -1,5 +1,6 @@
 import Inva from '#models/inva'
 import type { HttpContext } from '@adonisjs/core/http'
+import { createInvaValidator, updateInvaValidator } from '#validators/inva'
 
 export default class InvasController {
   async index({ request, response }: HttpContext) {
@@ -32,14 +33,14 @@ export default class InvasController {
   }
 
   async store({ request, response }: HttpContext) {
-    const data = request.only(['nome', 'celular', 'situacaoInvaId', 'baseId'])
+    const data = await request.validateUsing(createInvaValidator)
     const inva = await Inva.create(data)
     return response.json(inva)
   }
 
   async update({ params, request, response }: HttpContext) {
     const inva = await Inva.findOrFail(params.id)
-    const data = request.only(['nome', 'celular', 'situacaoInvaId', 'baseId'])
+    const data = await request.validateUsing(updateInvaValidator)
     inva.merge(data)
     await inva.save()
     return response.json(inva)

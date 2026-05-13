@@ -18,22 +18,22 @@ export default class Slot extends BaseModel {
   declare statusSlotId: number
 
   @column()
-  declare aeronaveId: number
+  declare aeronaveId: number | null
 
   @column()
-  declare alunoId: number
+  declare alunoId: number | null
 
   @column()
-  declare missaoId: number
+  declare missaoId: number | null
 
   @column()
-  declare invaId: number
+  declare invaId: number | null
 
   @column()
   declare barraId: number | null
 
   @column()
-  declare observacoes: string
+  declare observacoes: string | null
 
   @column()
   declare isChecked: boolean
