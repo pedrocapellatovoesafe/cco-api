@@ -6,6 +6,7 @@ import Missao from '#models/missao'
 import Barra from '#models/barra'
 import StatusSlot from '#models/status_slot'
 import { DateTime } from 'luxon'
+import db from '@adonisjs/lucid/services/db'
 
 export default class SlotService {
   /**
@@ -84,7 +85,8 @@ export default class SlotService {
    * Otimização Big O (Phase 3):
    * 1. Buscamos todos os registros de referência de uma vez (Alunos, Invas, etc.)
    * 2. Utilizamos Maps em memória para busca rápida (O(1)) dentro do loop.
-   * 3. Isso evita milhares de consultas ao banco de dados durante a importação.
+   * 3. Utilizamos transação e inserção em lote (createMany) para máxima performance e atomicidade.
+   * 4. A tabela de slots é limpa antes da importação para garantir que apenas os dados novos persistam.
    */
   async import(slotsData: any[]) {
     const results = []
@@ -107,114 +109,113 @@ export default class SlotService {
     const barraMap = new Map(barras.map((b) => [b.nome.toLowerCase().trim(), b]))
     const statusMap = new Map(statusSlots.map((s) => [s.nome.toLowerCase().trim(), s]))
 
-    // Buscamos todos os slots existentes no intervalo das datas fornecidas para evitar consultas unitárias
-    // Como os slots podem ser muitos, aqui fazemos um trade-off: 
-    // Se forem milhares de slots no banco, talvez ainda precisemos de uma estratégia melhor.
-    // Para este caso, assumimos que a importação é para um período específico.
-    
-    for (const slotItem of slotsData) {
-      try {
-        const requiredFields = ['hora', 'st', 'barra', 'data']
-        const missingFields = requiredFields.filter((field) => !slotItem[field])
+    await db.transaction(async (trx) => {
+      // O "PORQUÊ": Conforme solicitado, a importação agora limpa todos os registros
+      // existentes para garantir que apenas os dados do novo payload existam no sistema.
+      await Slot.query().useTransaction(trx).delete()
 
-        if (missingFields.length > 0) {
-          errors.push({
-            slotId: slotItem.id,
-            error: `Campos obrigatórios faltando: ${missingFields.join(', ')}`,
-          })
-          continue
+      const payloadsToCreate: any[] = []
+      const inputIds: number[] = []
+
+      for (const slotItem of slotsData) {
+        try {
+          const requiredFields = ['hora', 'st', 'barra', 'data']
+          const missingFields = requiredFields.filter((field) => !slotItem[field])
+
+          if (missingFields.length > 0) {
+            errors.push({
+              slotId: slotItem.id,
+              error: `Campos obrigatórios faltando: ${missingFields.join(', ')}`,
+            })
+            continue
+          }
+
+          const dataHora = this.convertToUTC(`${slotItem.data} ${slotItem.hora}`, 'dd/MM/yyyy HH:mm')
+
+          if (!dataHora.isValid) {
+            errors.push({
+              slotId: slotItem.id,
+              error: `Data/hora inválida: ${slotItem.data} ${slotItem.hora}`,
+            })
+            continue
+          }
+
+          const normalize = (value: unknown) => {
+            if (value === undefined || value === null) return null
+            const normalized = String(value).trim()
+            return normalized === '' ? null : normalized
+          }
+
+          const alunoName = normalize(slotItem.aluno)?.toLowerCase()
+          const invaName = normalize(slotItem.inva)?.toLowerCase()
+          const aeronaveName = normalize(slotItem.ae)?.toLowerCase()
+          const missaoName = normalize(slotItem.missao)?.toLowerCase()
+          const barraName = normalize(slotItem.barra)?.toLowerCase()
+          const statusName = normalize(slotItem.st)?.toLowerCase()
+          const observacoes = normalize(slotItem.obs)
+
+          let aluno = alunoName ? alunoMap.get(alunoName) : null
+          if (alunoName && !aluno) {
+            aluno = await Aluno.create({ nome: slotItem.aluno, cpf: null, celular: null }, { client: trx })
+            alunoMap.set(alunoName, aluno) // Update map for subsequent items
+          }
+
+          const inva = invaName ? invaMap.get(invaName) : null
+          if (invaName && !inva) {
+            errors.push({ slotId: slotItem.id, error: `Instrutor (inva) não encontrado: ${slotItem.inva}` })
+            continue
+          }
+
+          const aeronave = aeronaveName ? aeronaveMap.get(aeronaveName) : null
+          if (aeronaveName && !aeronave) {
+            errors.push({ slotId: slotItem.id, error: `Aeronave não encontrada: ${slotItem.ae}` })
+            continue
+          }
+
+          const missao = missaoName ? missaoMap.get(missaoName) : null
+          if (missaoName && !missao) {
+            errors.push({ slotId: slotItem.id, error: `Missão não encontrada: ${slotItem.missao}` })
+            continue
+          }
+
+          const barra = barraName ? barraMap.get(barraName) : null
+          if (!barra) {
+            errors.push({ slotId: slotItem.id, error: `Barra não encontrada: ${slotItem.barra}` })
+            continue
+          }
+
+          const statusSlot = statusName ? statusMap.get(statusName) : null
+          if (!statusSlot) {
+            errors.push({ slotId: slotItem.id, error: `Status não encontrado: ${slotItem.st}` })
+            continue
+          }
+
+          const slotPayload: any = {
+            dataHora,
+            alunoId: aluno ? aluno.id : null,
+            invaId: inva ? inva.id : null,
+            aeronaveId: aeronave ? aeronave.id : null,
+            missaoId: missao ? missao.id : null,
+            statusSlotId: statusSlot.id,
+            barraId: barra.id,
+            observacoes: observacoes || null,
+            isChecked: false,
+          }
+
+          payloadsToCreate.push(slotPayload)
+          inputIds.push(slotItem.id)
+        } catch (e) {
+          errors.push({ slotId: slotItem.id, error: (e as Error).message })
         }
-
-        const dataHora = this.convertToUTC(`${slotItem.data} ${slotItem.hora}`, 'dd/MM/yyyy HH:mm')
-
-        if (!dataHora.isValid) {
-          errors.push({
-            slotId: slotItem.id,
-            error: `Data/hora inválida: ${slotItem.data} ${slotItem.hora}`,
-          })
-          continue
-        }
-
-        const normalize = (value: unknown) => {
-          if (value === undefined || value === null) return null
-          const normalized = String(value).trim()
-          return normalized === '' ? null : normalized
-        }
-
-        const alunoName = normalize(slotItem.aluno)?.toLowerCase()
-        const invaName = normalize(slotItem.inva)?.toLowerCase()
-        const aeronaveName = normalize(slotItem.ae)?.toLowerCase()
-        const missaoName = normalize(slotItem.missao)?.toLowerCase()
-        const barraName = normalize(slotItem.barra)?.toLowerCase()
-        const statusName = normalize(slotItem.st)?.toLowerCase()
-        const observacoes = normalize(slotItem.obs)
-
-        let aluno = alunoName ? alunoMap.get(alunoName) : null
-        if (alunoName && !aluno) {
-          aluno = await Aluno.create({ nome: slotItem.aluno, cpf: null, celular: null })
-          alunoMap.set(alunoName, aluno) // Update map for subsequent items
-        }
-
-        const inva = invaName ? invaMap.get(invaName) : null
-        if (invaName && !inva) {
-          errors.push({ slotId: slotItem.id, error: `Instrutor (inva) não encontrado: ${slotItem.inva}` })
-          continue
-        }
-
-        const aeronave = aeronaveName ? aeronaveMap.get(aeronaveName) : null
-        if (aeronaveName && !aeronave) {
-          errors.push({ slotId: slotItem.id, error: `Aeronave não encontrada: ${slotItem.ae}` })
-          continue
-        }
-
-        const missao = missaoName ? missaoMap.get(missaoName) : null
-        if (missaoName && !missao) {
-          errors.push({ slotId: slotItem.id, error: `Missão não encontrada: ${slotItem.missao}` })
-          continue
-        }
-
-        const barra = barraName ? barraMap.get(barraName) : null
-        if (!barra) {
-          errors.push({ slotId: slotItem.id, error: `Barra não encontrada: ${slotItem.barra}` })
-          continue
-        }
-
-        const statusSlot = statusName ? statusMap.get(statusName) : null
-        if (!statusSlot) {
-          errors.push({ slotId: slotItem.id, error: `Status não encontrado: ${slotItem.st}` })
-          continue
-        }
-
-        // Para evitar N+1 aqui, ainda estamos buscando o slot pelo dataHora e barraId
-        // Uma melhoria seria carregar os slots existentes para as datas em questão
-        let slot = await Slot.query()
-            .where('dataHora', dataHora.toSQL()!)
-            .where('barraId', barra.id)
-            .first()
-
-        const slotPayload: any = {
-          dataHora,
-          alunoId: aluno ? aluno.id : null,
-          invaId: inva ? inva.id : null,
-          aeronaveId: aeronave ? aeronave.id : null,
-          missaoId: missao ? missao.id : null,
-          statusSlotId: statusSlot.id,
-          barraId: barra.id,
-          observacoes: observacoes || null,
-        }
-
-        if (slot) {
-          slot.merge(slotPayload)
-          await slot.save()
-          results.push({ slotId: slotItem.id, action: 'updated', slot: slot.serialize() })
-        } else {
-          slot = await Slot.create(slotPayload)
-          results.push({ slotId: slotItem.id, action: 'created', slot: slot.serialize() })
-        }
-      } catch (e) {
-        errors.push({ slotId: slotItem.id, error: (e as Error).message })
       }
-    }
+
+      if (payloadsToCreate.length > 0) {
+        const createdSlots = await Slot.createMany(payloadsToCreate, { client: trx })
+        createdSlots.forEach((slot, index) => {
+          results.push({ slotId: inputIds[index], action: 'created', slot: slot.serialize() })
+        })
+      }
+    })
 
     return { results, errors }
   }

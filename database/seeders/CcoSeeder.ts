@@ -29,7 +29,7 @@ export default class CcoSeeder extends BaseSeeder {
     })
 
     // 2. Situações Inva
-    const situacoes = ['clt_full', 'eventual', 'solo', 'clt_part']
+    const situacoes = ['clt_full', 'eventual', 'solo', 'clt_part', 'checador']
     for (const nome of situacoes) {
       await SituacaoInva.updateOrCreate({ nome }, { nome })
     }
@@ -119,6 +119,8 @@ export default class CcoSeeder extends BaseSeeder {
       { nome: 'BERNARDO FERREIRA', situacao: 'solo', base: 'CPQ' },
       { nome: 'GABRIEL ANDRADE', situacao: 'solo', base: 'CPQ' },
       { nome: 'GABRIEL COMARELLA', situacao: 'solo', base: 'CPQ' },
+      { nome: 'ANDRE OLIVEIRA', situacao: 'checador', base: 'CPQ' },
+      { nome: 'PISANI', situacao: 'checador', base: 'SJK' },
     ]
     for (const { nome, situacao, base } of invasData) {
       const situacaoInstance = await SituacaoInva.findByOrFail('nome', situacao)
@@ -139,7 +141,7 @@ export default class CcoSeeder extends BaseSeeder {
       { nome: 'SIRA (SJK) #4', modelo: 'SIRA', baseId: 1 },
       { nome: 'SIM PCATD - SBSJ #5', modelo: 'SM PCATD', baseId: 1 },
       { nome: 'SM AATD SJK #6', modelo: 'SM AATD', baseId: 1 },
-      { nome: 'SIM AATD CPQ #7', modelo: 'SM AATD', baseId: 2 },
+      { nome: 'SIM AATD CPQ #10', modelo: 'SM AATD', baseId: 2 },
       { nome: 'SIM PCATD - SDAM #8', modelo: 'SM PCATD', baseId: 2 },
       { nome: 'COLT #11', modelo: 'COLT', baseId: 2 },
       { nome: 'COLT DIURNO #12', modelo: 'COLT', baseId: 2 },
