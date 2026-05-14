@@ -105,6 +105,7 @@ export default class CcoSeeder extends BaseSeeder {
       { nome: 'IAN FRANCISCO GAIECKI OLIVEIRA', situacao: 'eventual', base: 'CPQ' },
       { nome: 'JOSÉ FELIPE DE CAMARGO BARROS NETO', situacao: 'eventual', base: 'CPQ' },
       { nome: 'LUIZ QUAGLIA', situacao: 'eventual', base: 'CPQ' },
+      { nome: 'PAIVA', situacao: 'eventual', base: 'CPQ' },
       { nome: 'CAIQUE DUARTE', situacao: 'solo', base: 'SJK' },
       { nome: 'RODRIGO NASCIMENTO', situacao: 'solo', base: 'SJK' },
       { nome: 'RODRIGO MELO', situacao: 'solo', base: 'SJK' },
