@@ -79,6 +79,7 @@ export type ScannedRoutes = {
     'alunos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'alunos.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'restricoes.import': { paramsTuple?: []; params?: {} }
+    'restricoes.bulk_destroy': { paramsTuple?: []; params?: {} }
     'restricoes.index': { paramsTuple?: []; params?: {} }
     'restricoes.create': { paramsTuple?: []; params?: {} }
     'restricoes.store': { paramsTuple?: []; params?: {} }
@@ -252,6 +253,7 @@ export type ScannedRoutes = {
     'invas.store': { paramsTuple?: []; params?: {} }
     'alunos.store': { paramsTuple?: []; params?: {} }
     'restricoes.import': { paramsTuple?: []; params?: {} }
+    'restricoes.bulk_destroy': { paramsTuple?: []; params?: {} }
     'restricoes.store': { paramsTuple?: []; params?: {} }
     'tipo_disponibilidades.store': { paramsTuple?: []; params?: {} }
     'escala_trabalhos.import': { paramsTuple?: []; params?: {} }

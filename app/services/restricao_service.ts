@@ -25,4 +25,11 @@ export default class RestricaoService {
 
     return await Restricao.createMany(payloads)
   }
+
+  /**
+   * Remove múltiplas restrições em lote para otimização de performance.
+   */
+  async bulkDelete(ids: number[]) {
+    return await Restricao.query().whereIn('id', ids).delete()
+  }
 }

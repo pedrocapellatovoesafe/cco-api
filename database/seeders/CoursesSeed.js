@@ -102,7 +102,7 @@ export default class CoursesSeed extends BaseSeeder {
       })
     }
 
-    await Missao.create({nome: 'Aperfeiçoamento Contínuo', cursoId: cursoPrograma.id})
-    await Missao.create({nome: 'Voo incentivo', cursoId: cursoIncentivo.id})
+    await Missao.updateOrCreate({ nome: 'Aperfeiçoamento Contínuo' }, { nome: 'Aperfeiçoamento Contínuo', cursoId: cursoPrograma.id })
+    await Missao.updateOrCreate({ nome: 'Voo incentivo' }, { nome: 'Voo incentivo', cursoId: cursoIncentivo.id })
 }
 }

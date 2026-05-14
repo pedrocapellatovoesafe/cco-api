@@ -35,3 +35,9 @@ export const updateRestricaoValidator = vine.compile(
     isMissao: vine.boolean().optional(),
   })
 )
+
+export const bulkDeleteRestricaoValidator = vine.compile(
+  vine.object({
+    ids: vine.array(vine.number()).minLength(1),
+  })
+)

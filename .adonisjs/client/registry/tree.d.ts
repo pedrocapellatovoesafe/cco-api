@@ -110,6 +110,7 @@ export interface ApiDefinition {
   }
   restricoes: {
     import: typeof routes['restricoes.import']
+    bulkDestroy: typeof routes['restricoes.bulk_destroy']
     index: typeof routes['restricoes.index']
     create: typeof routes['restricoes.create']
     store: typeof routes['restricoes.store']

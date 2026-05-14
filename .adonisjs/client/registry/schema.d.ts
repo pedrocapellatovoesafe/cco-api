@@ -907,6 +907,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/restricoes_controller').default['import']>>>
     }
   }
+  'restricoes.bulk_destroy': {
+    methods: ["POST"]
+    pattern: '/api/v1/restricoes/bulk-delete'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/restricao').bulkDeleteRestricaoValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/restricao').bulkDeleteRestricaoValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/restricoes_controller').default['bulkDestroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/restricoes_controller').default['bulkDestroy']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'restricoes.index': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/restricoes'

@@ -1,6 +1,10 @@
 import Restricao from '#models/restricao'
 import type { HttpContext } from '@adonisjs/core/http'
-import { createRestricaoValidator, updateRestricaoValidator } from '#validators/restricao'
+import {
+  createRestricaoValidator,
+  updateRestricaoValidator,
+  bulkDeleteRestricaoValidator,
+} from '#validators/restricao'
 import RestricaoService from '#services/restricao_service'
 import { inject } from '@adonisjs/core'
 
@@ -48,6 +52,12 @@ export default class RestricoesController {
     const restricao = await Restricao.findOrFail(params.id)
     await restricao.delete()
     return response.json({ message: 'Restricao deleted' })
+  }
+
+  async bulkDestroy({ request, response }: HttpContext) {
+    const { ids } = await request.validateUsing(bulkDeleteRestricaoValidator)
+    await this.restricaoService.bulkDelete(ids)
+    return response.json({ message: 'Restrições removidas com sucesso' })
   }
 
   async import({ request, response }: HttpContext) {

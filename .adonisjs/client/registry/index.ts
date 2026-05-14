@@ -456,6 +456,12 @@ const routes = {
     tokens: [{"old":"/api/v1/restricoes/import","type":0,"val":"api","end":""},{"old":"/api/v1/restricoes/import","type":0,"val":"v1","end":""},{"old":"/api/v1/restricoes/import","type":0,"val":"restricoes","end":""},{"old":"/api/v1/restricoes/import","type":0,"val":"import","end":""}],
     types: placeholder as Registry['restricoes.import']['types'],
   },
+  'restricoes.bulk_destroy': {
+    methods: ["POST"],
+    pattern: '/api/v1/restricoes/bulk-delete',
+    tokens: [{"old":"/api/v1/restricoes/bulk-delete","type":0,"val":"api","end":""},{"old":"/api/v1/restricoes/bulk-delete","type":0,"val":"v1","end":""},{"old":"/api/v1/restricoes/bulk-delete","type":0,"val":"restricoes","end":""},{"old":"/api/v1/restricoes/bulk-delete","type":0,"val":"bulk-delete","end":""}],
+    types: placeholder as Registry['restricoes.bulk_destroy']['types'],
+  },
   'restricoes.index': {
     methods: ["GET","HEAD"],
     pattern: '/api/v1/restricoes',
