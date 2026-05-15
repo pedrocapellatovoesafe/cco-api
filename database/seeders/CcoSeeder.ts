@@ -16,17 +16,23 @@ export default class CcoSeeder extends BaseSeeder {
     const defaultPassword = env.get('SEED_USER_PASSWORD')
 
     // 1. Usuários
-    await User.updateOrCreate({ email: 'pedro.capellato@voesafe.com.br' }, {
-      fullName: 'Pedro Henrique Capellato Jardim',
-      email: 'pedro.capellato@voesafe.com.br',
-      password: defaultPassword
-    })
+    await User.updateOrCreate(
+      { email: 'pedro.capellato@voesafe.com.br' },
+      {
+        fullName: 'Pedro Henrique Capellato Jardim',
+        email: 'pedro.capellato@voesafe.com.br',
+        password: defaultPassword,
+      }
+    )
 
-    await User.updateOrCreate({ email: 'cco@voesafe.com.br' }, {
-      fullName: 'CCO',
-      email: 'cco@voesafe.com.br',
-      password: defaultPassword
-    })
+    await User.updateOrCreate(
+      { email: 'cco@voesafe.com.br' },
+      {
+        fullName: 'CCO',
+        email: 'cco@voesafe.com.br',
+        password: defaultPassword,
+      }
+    )
 
     // 2. Situações Inva
     const situacoes = ['clt_full', 'eventual', 'solo', 'clt_part', 'checador']
@@ -47,7 +53,15 @@ export default class CcoSeeder extends BaseSeeder {
     }
 
     // 5. Status Slots
-    const statusSlots = ['CONFIRMADO', 'PENDENTE', 'AGUARDANDO CONFIRMAÇÃO', 'METEOROLOGIA', 'OPERAÇÕES', 'REVISÃO', 'MANUTENÇÃO']
+    const statusSlots = [
+      'CONFIRMADO',
+      'PENDENTE',
+      'AGUARDANDO CONFIRMAÇÃO',
+      'METEOROLOGIA',
+      'OPERAÇÕES',
+      'REVISÃO',
+      'MANUTENÇÃO',
+    ]
     for (const nome of statusSlots) {
       await StatusSlot.updateOrCreate({ nome }, { nome })
     }
@@ -58,7 +72,7 @@ export default class CcoSeeder extends BaseSeeder {
       {
         nome: 'ALUNO TESTE',
         cpf: '12345678901',
-        celular: '12988888888'
+        celular: '12988888888',
       }
     )
 
@@ -78,10 +92,13 @@ export default class CcoSeeder extends BaseSeeder {
     ]
     for (const { nome, modelo } of aeronavesData) {
       const modeloInstance = await ModeloAeronave.findByOrFail('nome', modelo)
-      await Aeronave.updateOrCreate({ nome }, {
-        nome,
-        modeloAeronaveId: modeloInstance.id,
-      })
+      await Aeronave.updateOrCreate(
+        { nome },
+        {
+          nome,
+          modeloAeronaveId: modeloInstance.id,
+        }
+      )
     }
 
     // 7. Invas
@@ -126,12 +143,15 @@ export default class CcoSeeder extends BaseSeeder {
     for (const { nome, situacao, base } of invasData) {
       const situacaoInstance = await SituacaoInva.findByOrFail('nome', situacao)
       const baseInstance = await Base.findByOrFail('nome', base)
-      await Inva.updateOrCreate({ nome }, {
-        nome,
-        celular: '', // Assuming empty, as not provided
-        situacaoInvaId: situacaoInstance.id,
-        baseId: baseInstance.id,
-      })
+      await Inva.updateOrCreate(
+        { nome },
+        {
+          nome,
+          celular: '', // Assuming empty, as not provided
+          situacaoInvaId: situacaoInstance.id,
+          baseId: baseInstance.id,
+        }
+      )
     }
 
     // 8. Barras
@@ -146,16 +166,19 @@ export default class CcoSeeder extends BaseSeeder {
       { nome: 'SIM PCATD - SDAM #8', modelo: 'SM PCATD', baseId: 2 },
       { nome: 'COLT #11', modelo: 'COLT', baseId: 2 },
       { nome: 'COLT DIURNO #12', modelo: 'COLT', baseId: 2 },
-      { nome: 'MC01 (CPQ) #13', modelo: 'MC01', baseId: 2 }
+      { nome: 'MC01 (CPQ) #13', modelo: 'MC01', baseId: 2 },
     ]
 
     for (const { nome, modelo, baseId } of dadosBarras) {
       const modeloInstance = await ModeloAeronave.findByOrFail('nome', modelo)
-      await Barra.updateOrCreate({ nome }, {
-        nome,
-        modeloAeronaveId: modeloInstance.id,
-        baseId
-      })
+      await Barra.updateOrCreate(
+        { nome },
+        {
+          nome,
+          modeloAeronaveId: modeloInstance.id,
+          baseId,
+        }
+      )
     }
 
     // 9. Tipo de disponibilidade
@@ -175,6 +198,6 @@ export default class CcoSeeder extends BaseSeeder {
 
     for (const nome of tipos) {
       await TipoDisponibilidade.updateOrCreate({ nome }, { nome })
-    } 
-}
+    }
+  }
 }

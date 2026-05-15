@@ -12,7 +12,10 @@ export const createEscalaTrabalhoValidator = vine.compile(
 
 export const updateEscalaTrabalhoValidator = vine.compile(
   vine.object({
-    data: vine.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+    data: vine
+      .string()
+      .regex(/^\d{4}-\d{2}-\d{2}$/)
+      .optional(),
     periodo: vine.string().trim().optional(),
     tipoDisponibilidadeId: vine.number().optional(),
     invaId: vine.number().optional(),

@@ -1,6 +1,8 @@
 import EscalaTrabalho from '#models/escala_trabalho'
 import { DateTime } from 'luxon'
 import db from '@adonisjs/lucid/services/db'
+import TipoDisponibilidade from '#models/tipo_disponibilidade'
+import Inva from '#models/inva'
 
 export default class EscalaTrabalhoService {
   /**
@@ -15,25 +17,107 @@ export default class EscalaTrabalhoService {
    * resolvendo o bug de duplicação.
    */
   async import(escalasData: any[]) {
+    // Cache de tipos e invas para evitar múltiplas queries
+    const tiposMap = new Map<string, number>()
+    const invasMap = new Map<string, number>()
+
+    const allTipos = await TipoDisponibilidade.all()
+    allTipos.forEach((t) => tiposMap.set(t.nome.toLowerCase(), t.id))
+
+    const allInvas = await Inva.all()
+    allInvas.forEach((i) => invasMap.set(i.nome.toLowerCase(), i.id))
+
+    const naoEspecificadoId = tiposMap.get('não especificado') || 11
+
+    // Reverse map para buscar nome pelo ID
+    const tiposNomeMap = new Map<number, string>()
+    allTipos.forEach((t) => tiposNomeMap.set(t.id, t.nome.toLowerCase()))
+
+    /**
+     * Helper para definir prioridade de status.
+     * Status específicos (ex: Sobreaviso, Férias) têm prioridade sobre status genéricos (Disponível, Folga Regular).
+     */
+    const getPriority = (id: number) => {
+      const nome = tiposNomeMap.get(id)
+      if (nome === 'disponivel' || nome === 'folga regular') {
+        return 1
+      }
+      return 2
+    }
+
     return await db.transaction(async (trx) => {
-      const results = []
+      // 1. Identificar meses únicos na importação
+      const months = [
+        ...new Set(
+          escalasData.map((item) => {
+            const dataParsed = item.data.includes('/')
+              ? DateTime.fromFormat(item.data, 'dd/MM/yyyy')
+              : DateTime.fromISO(item.data)
+            return dataParsed.toFormat('yyyy-MM')
+          })
+        ),
+      ]
+
+      // 2. Remover registros atuais do mês correspondente (exceto instrutores 'solo')
+      // Esta operação limpa a escala do mês para os instrutores regulares antes de re-popular.
+      for (const month of months) {
+        await EscalaTrabalho.query({ client: trx })
+          .whereHas('inva', (query) => {
+            query.whereHas('situacaoInva', (sQuery) => {
+              sQuery.whereNot('nome', 'solo')
+            })
+          })
+          .whereRaw("strftime('%Y-%m', data) = ?", [month])
+          .delete()
+      }
+
+      // 3. Deduplicação Inteligente: Se houver duplicatas no payload para o mesmo dia/periodo/inva,
+      // priorizamos o status mais específico (ex: Sobreaviso > Folga Regular).
+      const uniqueEscalas = new Map<string, any>()
 
       for (const item of escalasData) {
-        // Normalização da data: Aceita tanto ISO (yyyy-MM-dd) quanto formato brasileiro (dd/MM/yyyy)
-        // Convertemos para ISO string explicitamente pois o driver do SQLite exige strings/numbers
-        // para bindings de busca em colunas de data.
         const dataParsed = item.data.includes('/')
           ? DateTime.fromFormat(item.data, 'dd/MM/yyyy')
           : DateTime.fromISO(item.data)
 
+        let finalInvaId = item.invaId
+        if (!finalInvaId && item.inva) {
+          finalInvaId = invasMap.get(item.inva.toLowerCase())
+        }
+        if (!finalInvaId) continue
+
+        let finalTipoId = item.tipoDisponibilidadeId
+        if (!finalTipoId && item.tipo) {
+          finalTipoId = tiposMap.get(item.tipo.toLowerCase()) || naoEspecificadoId
+        }
+        if (!finalTipoId) finalTipoId = naoEspecificadoId
+
+        const key = `${dataParsed.toISODate()}|${item.periodo.toLowerCase()}|${finalInvaId}`
+        const priority = getPriority(finalTipoId)
+
+        const existing = uniqueEscalas.get(key)
+        if (existing) {
+          const existingPriority = getPriority(existing.finalTipoId)
+          // Só sobrescreve se a nova prioridade for MAIOR ou se for IGUAL (mantendo lógica de "último vence")
+          if (priority >= existingPriority) {
+            uniqueEscalas.set(key, { ...item, finalInvaId, finalTipoId, dataParsed, priority })
+          }
+        } else {
+          uniqueEscalas.set(key, { ...item, finalInvaId, finalTipoId, dataParsed, priority })
+        }
+      }
+
+      const results = []
+
+      for (const item of uniqueEscalas.values()) {
         const escala = await EscalaTrabalho.updateOrCreate(
           {
-            data: dataParsed.toISODate() as any,
-            periodo: item.periodo,
-            invaId: item.invaId,
+            data: item.dataParsed.toISODate() as any,
+            periodo: item.periodo.toLowerCase(),
+            invaId: item.finalInvaId,
           },
           {
-            tipoDisponibilidadeId: item.tipoDisponibilidadeId,
+            tipoDisponibilidadeId: item.finalTipoId,
             motivo: item.motivo || '',
           },
           { client: trx }

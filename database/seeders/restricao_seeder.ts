@@ -14,11 +14,11 @@ export default class RestricaoSeeder extends BaseSeeder {
     'MOCKUP 03',
     'MOCKUP 04 - PCATD',
     'MONITORIA NAV VFR',
-    'NAV SOLO'
+    'NAV SOLO',
   ].map((m) => m.toUpperCase())
 
   /**
-   * STANDARD_RESTRICTED_MISSIONS: Missões de cheque que são restritas para todos, 
+   * STANDARD_RESTRICTED_MISSIONS: Missões de cheque que são restritas para todos,
    * exceto para quem tem situação 'checador'.
    */
   private STANDARD_RESTRICTED_MISSIONS = [
@@ -55,7 +55,7 @@ export default class RestricaoSeeder extends BaseSeeder {
     'IFR 07 - NAVEGAÇÃO E PROCEDIMENTOS',
     'IFR 08 - NAVEGAÇÃO E PROCEDIMENTOS',
     'IFR 09 - NAVEGAÇÃO E PROCEDIMENTOS',
-    'IFR 10 - NAVEGAÇÃO'
+    'IFR 10 - NAVEGAÇÃO',
   ].map((m) => m.toUpperCase())
 
   /**

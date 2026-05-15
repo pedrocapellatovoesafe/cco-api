@@ -159,4 +159,198 @@ test.group('Escala Trabalho Import', (group) => {
     const total = await EscalaTrabalho.query().where('invaId', inva.id)
     assert.equal(total.length, 2)
   })
+
+  test('it should delete existing non-solo records for the month and preserve solo records', async ({
+    client,
+    assert,
+  }) => {
+    const user = await User.create({
+      fullName: 'Test User 3',
+      email: 'test_escala_3' + Math.random() + '@example.com',
+      password: 'password',
+    })
+
+    const situacaoAtivo = await SituacaoInva.create({ nome: 'ATIVO' })
+    const situacaoSolo = await SituacaoInva.create({ nome: 'solo' })
+
+    const invaAtivo = await Inva.create({
+      nome: 'INVA ATIVO',
+      celular: '111',
+      situacaoInvaId: situacaoAtivo.id,
+    })
+    const invaSolo = await Inva.create({
+      nome: 'INVA SOLO',
+      celular: '222',
+      situacaoInvaId: situacaoSolo.id,
+    })
+
+    const tipoDisp = await TipoDisponibilidade.create({ nome: 'DISPONIVEL' })
+
+    // Escala existente para INVA ATIVO em 2026-07-10 (deve ser deletada ao importar qualquer dia de 07/2026)
+    await EscalaTrabalho.create({
+      data: DateTime.fromISO('2026-07-10'),
+      periodo: 'm',
+      invaId: invaAtivo.id,
+      tipoDisponibilidadeId: tipoDisp.id,
+      motivo: 'To be deleted',
+    })
+
+    // Escala existente para INVA SOLO em 2026-07-15 (deve ser PRESERVADA)
+    await EscalaTrabalho.create({
+      data: DateTime.fromISO('2026-07-15'),
+      periodo: 't',
+      invaId: invaSolo.id,
+      tipoDisponibilidadeId: tipoDisp.id,
+      motivo: 'Solo should stay',
+    })
+
+    const importData = {
+      escalas: [
+        {
+          data: '2026-07-20', // Outro dia no mesmo mês
+          periodo: 'n',
+          invaId: invaAtivo.id,
+          tipoDisponibilidadeId: tipoDisp.id,
+          motivo: 'New import',
+        },
+      ],
+    }
+
+    const response = await client
+      .post('/api/v1/escala-trabalhos/import')
+      .loginAs(user)
+      .json(importData)
+
+    response.assertStatus(200)
+
+    // Verificações
+    // 1. Escala antiga do INVA ATIVO deve ter sumido
+    const oldAtivo = await EscalaTrabalho.query()
+      .where('data', '2026-07-10')
+      .where('invaId', invaAtivo.id)
+      .first()
+    assert.notExists(oldAtivo, 'A escala antiga do instrutor ativo deveria ter sido deletada')
+
+    // 2. Escala do INVA SOLO deve persistir
+    const soloRecord = await EscalaTrabalho.query()
+      .where('data', '2026-07-15')
+      .where('invaId', invaSolo.id)
+      .first()
+    assert.exists(soloRecord, 'A escala do instrutor solo deveria ter sido preservada')
+
+    // 3. Nova escala importada deve existir
+    const newRecord = await EscalaTrabalho.query()
+      .where('data', '2026-07-20')
+      .where('invaId', invaAtivo.id)
+      .first()
+    assert.exists(newRecord, 'A nova escala importada deveria existir')
+  })
+
+  test('it should map instructor and status names to IDs during import', async ({
+    client,
+    assert,
+  }) => {
+    const user = await User.create({
+      fullName: 'Test User 4',
+      email: 'test_escala_4' + Math.random() + '@example.com',
+      password: 'password',
+    })
+
+    const situacao = await SituacaoInva.create({ nome: 'clt_part' })
+    const inva = await Inva.create({
+      nome: 'DALAQUA',
+      celular: '999',
+      situacaoInvaId: situacao.id,
+    })
+
+    const tipoSobreaviso = await TipoDisponibilidade.create({ nome: 'Sobreaviso' })
+    await TipoDisponibilidade.create({ nome: 'Folga Regular' })
+
+    const importData = {
+      escalas: [
+        {
+          data: '14/05/2026',
+          periodo: 'm',
+          inva: 'Dalaqua', // Using name instead of ID
+          tipo: 'Sobreaviso', // Using name instead of ID
+          motivo: 'Teste mapping',
+        },
+      ],
+    }
+
+    const response = await client
+      .post('/api/v1/escala-trabalhos/import')
+      .loginAs(user)
+      .json(importData)
+
+    response.assertStatus(200)
+
+    const created = await EscalaTrabalho.query()
+      .where('invaId', inva.id)
+      .preload('tipoDisponibilidade')
+      .first()
+
+    assert.exists(created)
+    assert.equal(created?.tipoDisponibilidadeId, tipoSobreaviso.id)
+    assert.equal(created?.tipoDisponibilidade.nome, 'Sobreaviso')
+  })
+
+  test('it should prioritize more specific statuses when duplicates exist in the same payload', async ({
+    client,
+    assert,
+  }) => {
+    const user = await User.create({
+      fullName: 'Test User 5',
+      email: 'test_escala_5' + Math.random() + '@example.com',
+      password: 'password',
+    })
+
+    const situacao = await SituacaoInva.create({ nome: 'clt_part' })
+    const inva = await Inva.create({
+      nome: 'DALAQUA',
+      celular: '999',
+      situacaoInvaId: situacao.id,
+    })
+
+    const tipoFolga = await TipoDisponibilidade.create({ nome: 'Folga Regular' })
+    const tipoSobreaviso = await TipoDisponibilidade.create({ nome: 'Sobreaviso' })
+
+    const importData = {
+      escalas: [
+        {
+          data: '2026-05-14',
+          periodo: 'x',
+          tipoDisponibilidadeId: tipoSobreaviso.id, // Sobreaviso
+          invaId: inva.id,
+          motivo: '',
+        },
+        {
+          data: '2026-05-14',
+          periodo: 'x',
+          tipoDisponibilidadeId: tipoFolga.id, // Folga Regular (Generic, should not overwrite Sobreaviso)
+          invaId: inva.id,
+          motivo: '',
+        },
+      ],
+    }
+
+    const response = await client
+      .post('/api/v1/escala-trabalhos/import')
+      .loginAs(user)
+      .json(importData)
+
+    response.assertStatus(200)
+
+    const created = await EscalaTrabalho.query()
+      .where('invaId', inva.id)
+      .where('data', '2026-05-14')
+      .first()
+
+    assert.exists(created)
+    assert.equal(
+      created?.tipoDisponibilidadeId,
+      tipoSobreaviso.id,
+      'Deveria ter mantido Sobreaviso em vez de Folga Regular'
+    )
+  })
 })

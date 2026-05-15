@@ -6,9 +6,26 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').notNullable()
-      table.integer('barra_id').unsigned().nullable().references('id').inTable('barras').onDelete('SET NULL')
-      table.integer('status_slot_id').unsigned().notNullable().references('id').inTable('status_slots').onDelete('CASCADE')
-      table.integer('aeronave_id').unsigned().references('id').inTable('aeronaves').onDelete('CASCADE')
+      table
+        .integer('barra_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('barras')
+        .onDelete('SET NULL')
+      table
+        .integer('status_slot_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('status_slots')
+        .onDelete('CASCADE')
+      table
+        .integer('aeronave_id')
+        .unsigned()
+        .references('id')
+        .inTable('aeronaves')
+        .onDelete('CASCADE')
       table.integer('aluno_id').unsigned().references('id').inTable('alunos').onDelete('CASCADE')
       table.integer('inva_id').unsigned().references('id').inTable('invas').onDelete('CASCADE')
       table.integer('missao_id').unsigned().references('id').inTable('missoes').onDelete('CASCADE')

@@ -1,6 +1,9 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import EscalaTrabalho from '#models/escala_trabalho'
-import { createEscalaTrabalhoValidator, updateEscalaTrabalhoValidator } from '#validators/escala_trabalho'
+import {
+  createEscalaTrabalhoValidator,
+  updateEscalaTrabalhoValidator,
+} from '#validators/escala_trabalho'
 import EscalaTrabalhoService from '#services/escala_trabalho_service'
 import { inject } from '@adonisjs/core'
 import { DateTime } from 'luxon'
@@ -12,9 +15,7 @@ export default class EscalaTrabalhosController {
   async index({ request, response }: HttpContext) {
     const month = request.input('mes')
 
-    const query = EscalaTrabalho.query()
-      .preload('tipoDisponibilidade')
-      .preload('inva')
+    const query = EscalaTrabalho.query().preload('tipoDisponibilidade').preload('inva')
 
     if (month) {
       // Usando whereRaw para filtrar pelo ano e mês da data no formato YYYY-MM
@@ -39,7 +40,7 @@ export default class EscalaTrabalhosController {
     const data = await request.validateUsing(createEscalaTrabalhoValidator)
     const payload = {
       ...data,
-      data: DateTime.fromFormat(data.data, 'yyyy-MM-dd')
+      data: DateTime.fromFormat(data.data, 'yyyy-MM-dd'),
     }
     const escala = await EscalaTrabalho.create(payload as any)
     return response.json(escala)
@@ -50,7 +51,7 @@ export default class EscalaTrabalhosController {
     const data = await request.validateUsing(updateEscalaTrabalhoValidator)
     const payload = {
       ...data,
-      data: data.data ? DateTime.fromFormat(data.data, 'yyyy-MM-dd') : undefined
+      data: data.data ? DateTime.fromFormat(data.data, 'yyyy-MM-dd') : undefined,
     }
     escala.merge(payload as any)
     await escala.save()

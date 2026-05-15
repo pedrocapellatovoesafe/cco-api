@@ -12,19 +12,29 @@ export default class SlotsController {
   async index({ request, response }: HttpContext) {
     const { startDate, endDate } = await request.validateUsing(slotsFilterValidator)
 
-    const startLocal = DateTime.fromFormat(startDate, 'yyyy-MM-dd', { zone: 'America/Sao_Paulo' }).startOf('day')
+    const startLocal = DateTime.fromFormat(startDate, 'yyyy-MM-dd', {
+      zone: 'America/Sao_Paulo',
+    }).startOf('day')
     const start = startLocal.toUTC()
 
     const end = endDate
-      ? DateTime.fromFormat(endDate, 'yyyy-MM-dd', { zone: 'America/Sao_Paulo' }).endOf('day').toUTC()
+      ? DateTime.fromFormat(endDate, 'yyyy-MM-dd', { zone: 'America/Sao_Paulo' })
+          .endOf('day')
+          .toUTC()
       : startLocal.endOf('day').toUTC()
 
     const slots = await Slot.query()
       .whereBetween('dataHora', [start.toSQL()!, end.toSQL()!])
       .preload('statusSlot')
-      .preload('aeronave', (query) => query.preload('modeloAeronave').preload('restricoes', (query) => query.preload('inva')))
+      .preload('aeronave', (query) =>
+        query.preload('modeloAeronave').preload('restricoes', (query) => query.preload('inva'))
+      )
       .preload('aluno', (query) => query.preload('restricoes', (query) => query.preload('inva')))
-      .preload('inva', (query) => query.preload('situacaoInva').preload('restricoes', (query) => query.preload('missao').preload('aluno')))
+      .preload('inva', (query) =>
+        query
+          .preload('situacaoInva')
+          .preload('restricoes', (query) => query.preload('missao').preload('aluno'))
+      )
       .preload('missao', (query) => query.preload('curso'))
       .preload('barra', (query) => query.preload('modeloAeronave'))
     return response.json(slots)
@@ -81,7 +91,7 @@ export default class SlotsController {
     const body = request.body()
     if (!body.slots || !Array.isArray(body.slots)) {
       return response.status(400).json({
-        error: 'Estrutura inválida. Esperado: { slots[] }'
+        error: 'Estrutura inválida. Esperado: { slots[] }',
       })
     }
 
@@ -90,7 +100,7 @@ export default class SlotsController {
     return response.json({
       success: errors.length === 0,
       results,
-      errors: errors.length > 0 ? errors : undefined
+      errors: errors.length > 0 ? errors : undefined,
     })
   }
 }

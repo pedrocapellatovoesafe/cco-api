@@ -8,8 +8,20 @@ export default class extends BaseSchema {
       table.increments('id')
       table.date('data').notNullable()
       table.enum('periodo', ['m', 't', 'n', 'x']).notNullable()
-      table.integer('tipo_disponibilidade_id').unsigned().references('id').inTable('tipo_disponibilidades').onDelete('CASCADE').notNullable()
-      table.integer('inva_id').unsigned().references('id').inTable('invas').onDelete('CASCADE').notNullable()
+      table
+        .integer('tipo_disponibilidade_id')
+        .unsigned()
+        .references('id')
+        .inTable('tipo_disponibilidades')
+        .onDelete('CASCADE')
+        .notNullable()
+      table
+        .integer('inva_id')
+        .unsigned()
+        .references('id')
+        .inTable('invas')
+        .onDelete('CASCADE')
+        .notNullable()
       table.string('motivo').defaultTo('')
 
       table.timestamp('created_at')

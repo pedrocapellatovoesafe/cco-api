@@ -8,10 +8,7 @@ export default class MissoesController {
   }
 
   async show({ params, response }: HttpContext) {
-    const missao = await Missao.query()
-      .where('id', params.id)
-      .preload('curso')
-      .firstOrFail()
+    const missao = await Missao.query().where('id', params.id).preload('curso').firstOrFail()
     return response.json(missao)
   }
 

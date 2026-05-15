@@ -7,7 +7,13 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').notNullable()
       table.string('nome').notNullable()
-      table.integer('modelo_aeronave_id').unsigned().notNullable().references('id').inTable('modelos_aeronave').onDelete('CASCADE')
+      table
+        .integer('modelo_aeronave_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('modelos_aeronave')
+        .onDelete('CASCADE')
       table.integer('horas_disponiveis').notNullable().defaultTo(0)
 
       table.timestamp('created_at').notNullable()

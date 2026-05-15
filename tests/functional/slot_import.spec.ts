@@ -25,14 +25,16 @@ test.group('Slot Import', (group) => {
     const modelo = await ModeloAeronave.create({ nome: 'MODELO TESTE ' + Math.random() })
     const base = await Base.create({ nome: 'BASE TESTE ' + Math.random() })
     const status = await StatusSlot.create({ nome: 'CONFIRMADO' })
-    const barra = await Barra.create({ 
-      nome: 'BARRA TESTE ' + Math.random(), 
+    const barra = await Barra.create({
+      nome: 'BARRA TESTE ' + Math.random(),
       modeloAeronaveId: modelo.id,
-      baseId: base.id 
+      baseId: base.id,
     })
 
     const dataHoraStr = '2026-05-13 10:00'
-    const dataHora = DateTime.fromFormat(dataHoraStr, 'yyyy-MM-dd HH:mm', { zone: 'America/Sao_Paulo' }).toUTC()
+    const dataHora = DateTime.fromFormat(dataHoraStr, 'yyyy-MM-dd HH:mm', {
+      zone: 'America/Sao_Paulo',
+    }).toUTC()
 
     // 2. Criar um slot existente com isChecked = true
     const existingSlot = await Slot.create({
@@ -51,27 +53,26 @@ test.group('Slot Import', (group) => {
           barra: barra.nome,
           st: 'CONFIRMADO',
           id: 1,
-        }
-      ]
+        },
+      ],
     }
 
     // 4. Executar importação
-    const response = await client
-      .post('/api/v1/slots/import')
-      .loginAs(user)
-      .json(importData)
+    const response = await client.post('/api/v1/slots/import').loginAs(user).json(importData)
 
     // 5. Verificações
     response.assertStatus(200)
-    
+
     // Verificamos que o slot original foi removido (pois a importação agora limpa tudo)
     const oldSlot = await Slot.find(existingSlot.id)
     assert.isNull(oldSlot, 'O slot original deveria ter sido removido')
 
     // Verificamos que o novo slot foi criado para o mesmo horário
-    const targetDataHora = DateTime.fromFormat('13/05/2026 10:00', 'dd/MM/yyyy HH:mm', { zone: 'America/Sao_Paulo' })
+    const targetDataHora = DateTime.fromFormat('13/05/2026 10:00', 'dd/MM/yyyy HH:mm', {
+      zone: 'America/Sao_Paulo',
+    })
     const allSlots = await Slot.query().where('barraId', barra.id)
-    const newSlot = allSlots.find(s => s.dataHora?.toMillis() === targetDataHora.toMillis())
+    const newSlot = allSlots.find((s) => s.dataHora?.toMillis() === targetDataHora.toMillis())
 
     assert.exists(newSlot, 'Um novo slot deveria ter sido criado')
     assert.equal(newSlot?.isChecked, false, 'O novo slot deveria estar com isChecked = false')
@@ -88,10 +89,10 @@ test.group('Slot Import', (group) => {
     const modelo = await ModeloAeronave.create({ nome: 'MODELO TESTE 2 ' + Math.random() })
     const base = await Base.create({ nome: 'BASE TESTE 2 ' + Math.random() })
     const status = await StatusSlot.create({ nome: 'PENDENTE' })
-    const barra = await Barra.create({ 
-      nome: 'BARRA TESTE 2 ' + Math.random(), 
+    const barra = await Barra.create({
+      nome: 'BARRA TESTE 2 ' + Math.random(),
       modeloAeronaveId: modelo.id,
-      baseId: base.id 
+      baseId: base.id,
     })
 
     // 2. Preparar payload de importação para um slot novo
@@ -103,22 +104,21 @@ test.group('Slot Import', (group) => {
           barra: barra.nome,
           st: 'PENDENTE',
           id: 2,
-        }
-      ]
+        },
+      ],
     }
 
     // 3. Executar importação
-    const response = await client
-      .post('/api/v1/slots/import')
-      .loginAs(user)
-      .json(importData)
+    const response = await client.post('/api/v1/slots/import').loginAs(user).json(importData)
 
     // 4. Verificações
     response.assertStatus(200)
-    
-    const targetDataHora = DateTime.fromFormat('14/05/2026 11:00', 'dd/MM/yyyy HH:mm', { zone: 'America/Sao_Paulo' })
+
+    const targetDataHora = DateTime.fromFormat('14/05/2026 11:00', 'dd/MM/yyyy HH:mm', {
+      zone: 'America/Sao_Paulo',
+    })
     const allSlots = await Slot.query().where('barraId', barra.id)
-    const newSlot = allSlots.find(s => s.dataHora?.toMillis() === targetDataHora.toMillis())
+    const newSlot = allSlots.find((s) => s.dataHora?.toMillis() === targetDataHora.toMillis())
 
     assert.exists(newSlot, 'O novo slot deveria ter sido criado')
     assert.equal(newSlot?.isChecked, false, 'O novo slot deveria estar com isChecked = false')
@@ -133,7 +133,7 @@ test.group('Slot Import', (group) => {
     })
 
     const status = await StatusSlot.create({ nome: 'REVISÃO ' + Math.random() })
-    
+
     // Criar um slot que NÃO está no payload de importação
     const unrelatedSlot = await Slot.create({
       dataHora: DateTime.now().plus({ days: 10 }),
@@ -143,14 +143,11 @@ test.group('Slot Import', (group) => {
 
     // 2. Importar algo básico (payload vazio)
     const importData = {
-      slots: []
+      slots: [],
     }
 
     // 3. Executar importação
-    await client
-      .post('/api/v1/slots/import')
-      .loginAs(user)
-      .json(importData)
+    await client.post('/api/v1/slots/import').loginAs(user).json(importData)
 
     // 4. Verificar que o slot não relacionado sumiu
     const found = await Slot.find(unrelatedSlot.id)

@@ -39,7 +39,7 @@ export default class Slot extends BaseModel {
   declare isChecked: boolean
 
   @column.dateTime({
-    serialize: (value: DateTime) => value.toFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+    serialize: (value: DateTime) => value.toFormat("yyyy-MM-dd'T'HH:mm:ss'Z'"),
   })
   declare dataHora: DateTime | null
 

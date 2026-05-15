@@ -63,7 +63,9 @@ export default class SlotService {
     const finalDataHora = data.dataHora || slot.dataHora
 
     if (finalBarraId && finalDataHora) {
-      const query = Slot.query().where('barraId', finalBarraId).where('dataHora', finalDataHora.toSQL())
+      const query = Slot.query()
+        .where('barraId', finalBarraId)
+        .where('dataHora', finalDataHora.toSQL())
 
       if (slot.id) {
         query.whereNot('id', slot.id)
@@ -130,7 +132,10 @@ export default class SlotService {
             continue
           }
 
-          const dataHora = this.convertToUTC(`${slotItem.data} ${slotItem.hora}`, 'dd/MM/yyyy HH:mm')
+          const dataHora = this.convertToUTC(
+            `${slotItem.data} ${slotItem.hora}`,
+            'dd/MM/yyyy HH:mm'
+          )
 
           if (!dataHora.isValid) {
             errors.push({
@@ -156,13 +161,19 @@ export default class SlotService {
 
           let aluno = alunoName ? alunoMap.get(alunoName) : null
           if (alunoName && !aluno) {
-            aluno = await Aluno.create({ nome: slotItem.aluno, cpf: null, celular: null }, { client: trx })
+            aluno = await Aluno.create(
+              { nome: slotItem.aluno, cpf: null, celular: null },
+              { client: trx }
+            )
             alunoMap.set(alunoName, aluno) // Update map for subsequent items
           }
 
           const inva = invaName ? invaMap.get(invaName) : null
           if (invaName && !inva) {
-            errors.push({ slotId: slotItem.id, error: `Instrutor (inva) não encontrado: ${slotItem.inva}` })
+            errors.push({
+              slotId: slotItem.id,
+              error: `Instrutor (inva) não encontrado: ${slotItem.inva}`,
+            })
             continue
           }
 
