@@ -67,8 +67,10 @@ export class AuthAccessTokenSchema extends BaseModel {
 }
 
 export class BarraSchema extends BaseModel {
-  static $columns = ['baseId', 'createdAt', 'id', 'modeloAeronaveId', 'nome', 'updatedAt'] as const
+  static $columns = ['ativo', 'baseId', 'createdAt', 'id', 'modeloAeronaveId', 'nome', 'updatedAt'] as const
   $columns = BarraSchema.$columns
+  @column()
+  declare ativo: boolean
   @column()
   declare baseId: number | null
   @column.dateTime({ autoCreate: true })

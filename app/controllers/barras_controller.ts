@@ -21,7 +21,7 @@ export default class BarrasController {
   }
 
   async store({ request, response }: HttpContext) {
-    const data = request.only(['nome', 'modeloAeronaveId', 'baseId'])
+    const data = request.only(['nome', 'modeloAeronaveId', 'baseId', 'ativo'])
     const barra = await Barra.create(data)
     await barra.load('modeloAeronave')
     await barra.load('base')
@@ -31,7 +31,7 @@ export default class BarrasController {
 
   async update({ params, request, response }: HttpContext) {
     const barra = await Barra.findOrFail(params.id)
-    const data = request.only(['nome', 'modeloAeronaveId', 'baseId'])
+    const data = request.only(['nome', 'modeloAeronaveId', 'baseId', 'ativo'])
     barra.merge(data)
     await barra.save()
     await barra.load('modeloAeronave')

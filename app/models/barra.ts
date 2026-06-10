@@ -16,6 +16,9 @@ export default class Barra extends BaseModel {
   declare nome: string
 
   @column()
+  declare ativo: boolean
+
+  @column()
   declare baseId: number | null
 
   @column()
