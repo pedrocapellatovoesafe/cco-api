@@ -7,7 +7,6 @@ export default class DatabaseSeeder extends BaseSeeder {
   async run() {
     await new CcoSeeder(this.client).run()
     await new CoursesSeed(this.client).run()
-    // Aguardar uma melhor implementação do RestricaoSeeder para evitar retrabalho de inserção no frontend
-    // await new RestricaoSeeder(this.client).run()
+    await new RestricaoSeeder(this.client).run()
   }
 }

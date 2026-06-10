@@ -194,6 +194,8 @@ export default class RestricaoSeeder extends BaseSeeder {
     return false
   }
 
+  // Aguardar uma melhor implementação do RestricaoSeeder para evitar retrabalho de inserção no frontend
+  /*
   async run() {
     const invas = await Inva.query().preload('situacaoInva')
     const missoes = await Missao.query().preload('curso')
@@ -268,4 +270,5 @@ export default class RestricaoSeeder extends BaseSeeder {
       }
     })
   }
+  */
 }

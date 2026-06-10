@@ -167,6 +167,7 @@ export default class CcoSeeder extends BaseSeeder {
       { nome: 'COLT #11', modelo: 'COLT', baseId: 2 },
       { nome: 'COLT DIURNO #12', modelo: 'COLT', baseId: 2 },
       { nome: 'MC01 (CPQ) #13', modelo: 'MC01', baseId: 2 },
+      { nome: 'MC01 (CPQ) (DIURNO) #14', modelo: 'MC01', baseId: 2 },
     ]
 
     for (const { nome, modelo, baseId } of dadosBarras) {

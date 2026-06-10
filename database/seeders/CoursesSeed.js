@@ -6,7 +6,7 @@ export default class CoursesSeed extends BaseSeeder {
   async run() {
     // 1. Cursos
     const cursos = ['PPA - Pratico', 'PC/IFRA', 'INVA', 'Capacitação do Instrutor de Voo Externo (Prático)',
-        'Programa de Aperfeiçoamento de Piloto SAFE (Prático)', 'Voo Incentivo (Prático)'
+        'Programa de Aperfeiçoamento de Piloto SAFE (Prático)', 'Voo Incentivo (Prático)', 'Curso Preparatório Azul'
     ]
     for (const nome of cursos) {
       await Curso.updateOrCreate({ nome }, { nome })
@@ -19,6 +19,7 @@ export default class CoursesSeed extends BaseSeeder {
     const cursoCapacitacao = await Curso.findByOrFail('nome', 'Capacitação do Instrutor de Voo Externo (Prático)')
     const cursoPrograma = await Curso.findByOrFail('nome', 'Programa de Aperfeiçoamento de Piloto SAFE (Prático)')
     const cursoIncentivo = await Curso.findByOrFail('nome', 'Voo Incentivo (Prático)')
+    const cursoAzul = await Curso.findByOrFail('nome', 'Curso Preparatório Azul')
 
     const missoes = [
       'Mockup 04 - PCATD', 'CHEQUE ANAC', 'Currículo de Solo', 'Mockup 01', 'Mockup 02', 'Mockup 03',
@@ -104,5 +105,20 @@ export default class CoursesSeed extends BaseSeeder {
 
     await Missao.updateOrCreate({ nome: 'Aperfeiçoamento Contínuo' }, { nome: 'Aperfeiçoamento Contínuo', cursoId: cursoPrograma.id })
     await Missao.updateOrCreate({ nome: 'Voo incentivo' }, { nome: 'Voo incentivo', cursoId: cursoIncentivo.id })
-}
+
+    const missoesAzul = [
+      'AZUL SIM-01',
+      'AZUL SIM-02',
+      'AZUL SIM-03',
+      'AZUL SIM-04',
+      'AZUL SIM-05',
+      'AD-01',
+      'AD-02',
+      'AD-03',
+      'AD-04',
+    ]
+    for (const nome of missoesAzul) {
+      await Missao.updateOrCreate({ nome }, { nome, cursoId: cursoAzul.id })
+    }
+  }
 }
