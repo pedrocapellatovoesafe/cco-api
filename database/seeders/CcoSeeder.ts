@@ -9,6 +9,7 @@ import Inva from '#models/inva'
 import Barra from '#models/barra'
 import Aluno from '#models/aluno'
 import TipoDisponibilidade from '#models/tipo_disponibilidade'
+import BarraHorario from '#models/barra_horario'
 import env from '#start/env'
 
 export default class CcoSeeder extends BaseSeeder {
@@ -199,6 +200,21 @@ export default class CcoSeeder extends BaseSeeder {
 
     for (const nome of tipos) {
       await TipoDisponibilidade.updateOrCreate({ nome }, { nome })
+    }
+
+    // 10. Horários das Barras
+    const horariosBase1 = ['07:45', '09:45', '11:45', '13:45', '15:45', '17:45']
+    const horariosBase2 = ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00']
+
+    const barras = await Barra.all()
+    for (const barra of barras) {
+      const horarios = barra.baseId === 1 ? horariosBase1 : horariosBase2
+      for (const hora of horarios) {
+        await BarraHorario.updateOrCreate(
+          { barraId: barra.id, hora },
+          { barraId: barra.id, hora, ativo: true }
+        )
+      }
     }
   }
 }

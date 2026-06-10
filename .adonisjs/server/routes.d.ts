@@ -115,6 +115,13 @@ export type ScannedRoutes = {
     'barras.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'barras_horarios.index': { paramsTuple?: []; params?: {} }
+    'barras_horarios.create': { paramsTuple?: []; params?: {} }
+    'barras_horarios.store': { paramsTuple?: []; params?: {} }
+    'barras_horarios.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'barras_horarios.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'barras_horarios.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'barras_horarios.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   GET: {
     'profile.profile.show': { paramsTuple?: []; params?: {} }
@@ -176,6 +183,10 @@ export type ScannedRoutes = {
     'barras.create': { paramsTuple?: []; params?: {} }
     'barras.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'barras_horarios.index': { paramsTuple?: []; params?: {} }
+    'barras_horarios.create': { paramsTuple?: []; params?: {} }
+    'barras_horarios.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'barras_horarios.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   HEAD: {
     'profile.profile.show': { paramsTuple?: []; params?: {} }
@@ -237,6 +248,10 @@ export type ScannedRoutes = {
     'barras.create': { paramsTuple?: []; params?: {} }
     'barras.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'barras_horarios.index': { paramsTuple?: []; params?: {} }
+    'barras_horarios.create': { paramsTuple?: []; params?: {} }
+    'barras_horarios.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'barras_horarios.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   POST: {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
@@ -261,6 +276,7 @@ export type ScannedRoutes = {
     'slots.store': { paramsTuple?: []; params?: {} }
     'slots.import': { paramsTuple?: []; params?: {} }
     'barras.store': { paramsTuple?: []; params?: {} }
+    'barras_horarios.store': { paramsTuple?: []; params?: {} }
   }
   PUT: {
     'users.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -278,6 +294,7 @@ export type ScannedRoutes = {
     'escala_trabalhos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'slots.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'barras_horarios.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   PATCH: {
     'users.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -294,6 +311,7 @@ export type ScannedRoutes = {
     'tipo_disponibilidades.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'escala_trabalhos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'barras_horarios.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   DELETE: {
     'users.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -311,6 +329,7 @@ export type ScannedRoutes = {
     'escala_trabalhos.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'slots.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'barras_horarios.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }
 declare module '@adonisjs/core/types/http' {

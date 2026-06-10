@@ -3,7 +3,10 @@ import type { HttpContext } from '@adonisjs/core/http'
 
 export default class BarrasController {
   async index({ response }: HttpContext) {
-    const barras = await Barra.query().preload('modeloAeronave').preload('base')
+    const barras = await Barra.query()
+      .preload('modeloAeronave')
+      .preload('base')
+      .preload('horarios')
     return response.json(barras)
   }
 
@@ -12,6 +15,7 @@ export default class BarrasController {
       .where('id', params.id)
       .preload('modeloAeronave')
       .preload('base')
+      .preload('horarios')
       .firstOrFail()
     return response.json(barra)
   }
@@ -19,6 +23,9 @@ export default class BarrasController {
   async store({ request, response }: HttpContext) {
     const data = request.only(['nome', 'modeloAeronaveId', 'baseId'])
     const barra = await Barra.create(data)
+    await barra.load('modeloAeronave')
+    await barra.load('base')
+    await barra.load('horarios')
     return response.json(barra)
   }
 
@@ -27,6 +34,9 @@ export default class BarrasController {
     const data = request.only(['nome', 'modeloAeronaveId', 'baseId'])
     barra.merge(data)
     await barra.save()
+    await barra.load('modeloAeronave')
+    await barra.load('base')
+    await barra.load('horarios')
     return response.json(barra)
   }
 

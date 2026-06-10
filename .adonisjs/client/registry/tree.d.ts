@@ -155,4 +155,13 @@ export interface ApiDefinition {
     update: typeof routes['barras.update']
     destroy: typeof routes['barras.destroy']
   }
+  barrasHorarios: {
+    index: typeof routes['barras_horarios.index']
+    create: typeof routes['barras_horarios.create']
+    store: typeof routes['barras_horarios.store']
+    show: typeof routes['barras_horarios.show']
+    edit: typeof routes['barras_horarios.edit']
+    update: typeof routes['barras_horarios.update']
+    destroy: typeof routes['barras_horarios.destroy']
+  }
 }

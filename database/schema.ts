@@ -83,6 +83,23 @@ export class BarraSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class BarrasHorarioSchema extends BaseModel {
+  static $columns = ['ativo', 'barraId', 'createdAt', 'hora', 'id', 'updatedAt'] as const
+  $columns = BarrasHorarioSchema.$columns
+  @column()
+  declare ativo: boolean
+  @column()
+  declare barraId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare hora: string
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class BaseSchema extends BaseModel {
   static $columns = ['createdAt', 'id', 'nome', 'updatedAt'] as const
   $columns = BaseSchema.$columns

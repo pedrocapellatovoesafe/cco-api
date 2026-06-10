@@ -8,6 +8,7 @@ export const controllers = {
   Aeronaves: () => import('#controllers/aeronaves_controller'),
   Alunos: () => import('#controllers/alunos_controller'),
   Barras: () => import('#controllers/barras_controller'),
+  BarrasHorarios: () => import('#controllers/barras_horarios_controller'),
   Bases: () => import('#controllers/bases_controller'),
   Cursos: () => import('#controllers/cursos_controller'),
   EscalaTrabalhos: () => import('#controllers/escala_trabalhos_controller'),

@@ -4,6 +4,7 @@ import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import ModeloAeronave from '#models/modelo_aeronave'
 import Base from '#models/base'
 import Restricao from '#models/restricao'
+import BarraHorario from '#models/barra_horario'
 
 export default class Barra extends BaseModel {
   public static table = 'barras'
@@ -40,4 +41,9 @@ export default class Barra extends BaseModel {
     foreignKey: 'barraId',
   })
   declare restricoes: HasMany<typeof Restricao>
+
+  @hasMany(() => BarraHorario, {
+    foreignKey: 'barraId',
+  })
+  declare horarios: HasMany<typeof BarraHorario>
 }

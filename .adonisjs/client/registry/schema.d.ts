@@ -1339,4 +1339,88 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/barras_controller').default['destroy']>>>
     }
   }
+  'barras_horarios.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/barras-horarios'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/barras_horarios_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/barras_horarios_controller').default['index']>>>
+    }
+  }
+  'barras_horarios.create': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/barras-horarios/create'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/barras_horarios_controller').default['create']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/barras_horarios_controller').default['create']>>>
+    }
+  }
+  'barras_horarios.store': {
+    methods: ["POST"]
+    pattern: '/api/v1/barras-horarios'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/barras_horarios_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/barras_horarios_controller').default['store']>>>
+    }
+  }
+  'barras_horarios.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/barras-horarios/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/barras_horarios_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/barras_horarios_controller').default['show']>>>
+    }
+  }
+  'barras_horarios.edit': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/barras-horarios/:id/edit'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/barras_horarios_controller').default['edit']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/barras_horarios_controller').default['edit']>>>
+    }
+  }
+  'barras_horarios.update': {
+    methods: ["PUT","PATCH"]
+    pattern: '/api/v1/barras-horarios/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/barras_horarios_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/barras_horarios_controller').default['update']>>>
+    }
+  }
+  'barras_horarios.destroy': {
+    methods: ["DELETE"]
+    pattern: '/api/v1/barras-horarios/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/barras_horarios_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/barras_horarios_controller').default['destroy']>>>
+    }
+  }
 }

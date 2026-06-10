@@ -78,6 +78,7 @@ router.group(() => {
 
       // router.resource('slots', controllers.Slots)
       router.resource('barras', controllers.Barras)
+      router.resource('barras-horarios', controllers.BarrasHorarios)
     })
     .prefix('/api/v1')
     .use(middleware.auth())

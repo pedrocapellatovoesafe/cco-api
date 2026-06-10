@@ -672,6 +672,48 @@ const routes = {
     tokens: [{"old":"/api/v1/barras/:id","type":0,"val":"api","end":""},{"old":"/api/v1/barras/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/barras/:id","type":0,"val":"barras","end":""},{"old":"/api/v1/barras/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['barras.destroy']['types'],
   },
+  'barras_horarios.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/barras-horarios',
+    tokens: [{"old":"/api/v1/barras-horarios","type":0,"val":"api","end":""},{"old":"/api/v1/barras-horarios","type":0,"val":"v1","end":""},{"old":"/api/v1/barras-horarios","type":0,"val":"barras-horarios","end":""}],
+    types: placeholder as Registry['barras_horarios.index']['types'],
+  },
+  'barras_horarios.create': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/barras-horarios/create',
+    tokens: [{"old":"/api/v1/barras-horarios/create","type":0,"val":"api","end":""},{"old":"/api/v1/barras-horarios/create","type":0,"val":"v1","end":""},{"old":"/api/v1/barras-horarios/create","type":0,"val":"barras-horarios","end":""},{"old":"/api/v1/barras-horarios/create","type":0,"val":"create","end":""}],
+    types: placeholder as Registry['barras_horarios.create']['types'],
+  },
+  'barras_horarios.store': {
+    methods: ["POST"],
+    pattern: '/api/v1/barras-horarios',
+    tokens: [{"old":"/api/v1/barras-horarios","type":0,"val":"api","end":""},{"old":"/api/v1/barras-horarios","type":0,"val":"v1","end":""},{"old":"/api/v1/barras-horarios","type":0,"val":"barras-horarios","end":""}],
+    types: placeholder as Registry['barras_horarios.store']['types'],
+  },
+  'barras_horarios.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/barras-horarios/:id',
+    tokens: [{"old":"/api/v1/barras-horarios/:id","type":0,"val":"api","end":""},{"old":"/api/v1/barras-horarios/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/barras-horarios/:id","type":0,"val":"barras-horarios","end":""},{"old":"/api/v1/barras-horarios/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['barras_horarios.show']['types'],
+  },
+  'barras_horarios.edit': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/barras-horarios/:id/edit',
+    tokens: [{"old":"/api/v1/barras-horarios/:id/edit","type":0,"val":"api","end":""},{"old":"/api/v1/barras-horarios/:id/edit","type":0,"val":"v1","end":""},{"old":"/api/v1/barras-horarios/:id/edit","type":0,"val":"barras-horarios","end":""},{"old":"/api/v1/barras-horarios/:id/edit","type":1,"val":"id","end":""},{"old":"/api/v1/barras-horarios/:id/edit","type":0,"val":"edit","end":""}],
+    types: placeholder as Registry['barras_horarios.edit']['types'],
+  },
+  'barras_horarios.update': {
+    methods: ["PUT","PATCH"],
+    pattern: '/api/v1/barras-horarios/:id',
+    tokens: [{"old":"/api/v1/barras-horarios/:id","type":0,"val":"api","end":""},{"old":"/api/v1/barras-horarios/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/barras-horarios/:id","type":0,"val":"barras-horarios","end":""},{"old":"/api/v1/barras-horarios/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['barras_horarios.update']['types'],
+  },
+  'barras_horarios.destroy': {
+    methods: ["DELETE"],
+    pattern: '/api/v1/barras-horarios/:id',
+    tokens: [{"old":"/api/v1/barras-horarios/:id","type":0,"val":"api","end":""},{"old":"/api/v1/barras-horarios/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/barras-horarios/:id","type":0,"val":"barras-horarios","end":""},{"old":"/api/v1/barras-horarios/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['barras_horarios.destroy']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }
