@@ -169,24 +169,24 @@ export default class SlotService {
           }
 
           const inva = invaName ? invaMap.get(invaName) : null
+          // O "PORQUÊ": Conforme solicitado, se o instrutor não for encontrado,
+          // o campo ficará nulo em vez de criar uma duplicata.
           if (invaName && !inva) {
-            errors.push({
-              slotId: slotItem.id,
-              error: `Instrutor (inva) não encontrado: ${slotItem.inva}`,
-            })
-            continue
+            console.log(`Instrutor não encontrado: ${slotItem.inva}. Campo será nulo.`)
           }
 
           const aeronave = aeronaveName ? aeronaveMap.get(aeronaveName) : null
+          // O "PORQUÊ": Se a aeronave não for encontrada ou não informada, 
+          // deixamos como nulo em vez de falhar o import.
           if (aeronaveName && !aeronave) {
-            errors.push({ slotId: slotItem.id, error: `Aeronave não encontrada: ${slotItem.ae}` })
-            continue
+            console.log(`Aeronave não encontrada: ${slotItem.ae}. Campo será nulo.`)
           }
 
           const missao = missaoName ? missaoMap.get(missaoName) : null
+          // O "PORQUÊ": Se a missão não for encontrada ou não informada, 
+          // deixamos como nulo em vez de falhar o import.
           if (missaoName && !missao) {
-            errors.push({ slotId: slotItem.id, error: `Missão não encontrada: ${slotItem.missao}` })
-            continue
+            console.log(`Missão não encontrada: ${slotItem.missao}. Campo será nulo.`)
           }
 
           const barra = barraName ? barraMap.get(barraName) : null
