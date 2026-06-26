@@ -10,6 +10,7 @@ import Barra from '#models/barra'
 import Aluno from '#models/aluno'
 import TipoDisponibilidade from '#models/tipo_disponibilidade'
 import BarraHorario from '#models/barra_horario'
+import InvaBarra from '#models/inva_barra'
 import env from '#start/env'
 
 export default class CcoSeeder extends BaseSeeder {
@@ -213,6 +214,22 @@ export default class CcoSeeder extends BaseSeeder {
         await BarraHorario.updateOrCreate(
           { barraId: barra.id, hora },
           { barraId: barra.id, hora, ativo: true }
+        )
+      }
+    }
+
+    // 11. Relacionar Invas e Barras pela Base (muitos para muitos)
+    const allInvas = await Inva.all()
+    const allBarras = await Barra.all()
+    
+    for (const inva of allInvas) {
+      if (!inva.baseId) continue
+      
+      const matchingBarras = allBarras.filter((b) => b.baseId === inva.baseId)
+      for (const barra of matchingBarras) {
+        await InvaBarra.updateOrCreate(
+          { invaId: inva.id, barraId: barra.id },
+          { invaId: inva.id, barraId: barra.id }
         )
       }
     }
