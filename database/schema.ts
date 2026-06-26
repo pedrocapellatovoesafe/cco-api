@@ -149,6 +149,21 @@ export class EscalaTrabalhoSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class InvaBarraSchema extends BaseModel {
+  static $columns = ['barraId', 'createdAt', 'id', 'invaId', 'updatedAt'] as const
+  $columns = InvaBarraSchema.$columns
+  @column()
+  declare barraId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare invaId: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class InvaSchema extends BaseModel {
   static $columns = ['baseId', 'celular', 'createdAt', 'id', 'nome', 'situacaoInvaId', 'updatedAt'] as const
   $columns = InvaSchema.$columns

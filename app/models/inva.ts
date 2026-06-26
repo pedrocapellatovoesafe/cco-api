@@ -1,10 +1,12 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, belongsTo, hasMany } from '@adonisjs/lucid/orm'
-import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import { BaseModel, column, belongsTo, hasMany, manyToMany } from '@adonisjs/lucid/orm'
+import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import SituacaoInva from './situacao_inva.js'
 import Restricao from './restricao.js'
 import Base from './base.js'
 import EscalaTrabalho from './escala_trabalho.js'
+import Barra from './barra.js'
+import InvaBarra from './inva_barra.js'
 
 export default class Inva extends BaseModel {
   public static table = 'invas'
@@ -49,4 +51,17 @@ export default class Inva extends BaseModel {
     foreignKey: 'invaId',
   })
   declare escalas: HasMany<typeof EscalaTrabalho>
+
+  @manyToMany(() => Barra, {
+    pivotTable: 'inva_barras',
+    pivotForeignKey: 'inva_id',
+    pivotRelatedForeignKey: 'barra_id',
+    pivotTimestamps: true,
+  })
+  declare barras: ManyToMany<typeof Barra>
+
+  @hasMany(() => InvaBarra, {
+    foreignKey: 'invaId',
+  })
+  declare invaBarras: HasMany<typeof InvaBarra>
 }

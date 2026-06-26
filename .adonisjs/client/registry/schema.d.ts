@@ -811,6 +811,90 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/invas_controller').default['destroy']>>>
     }
   }
+  'inva_barras.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/inva-barras'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/inva_barras_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/inva_barras_controller').default['index']>>>
+    }
+  }
+  'inva_barras.create': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/inva-barras/create'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/inva_barras_controller').default['create']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/inva_barras_controller').default['create']>>>
+    }
+  }
+  'inva_barras.store': {
+    methods: ["POST"]
+    pattern: '/api/v1/inva-barras'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/inva_barra').createInvaBarraValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/inva_barra').createInvaBarraValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/inva_barras_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/inva_barras_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'inva_barras.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/inva-barras/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/inva_barras_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/inva_barras_controller').default['show']>>>
+    }
+  }
+  'inva_barras.edit': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/inva-barras/:id/edit'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/inva_barras_controller').default['edit']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/inva_barras_controller').default['edit']>>>
+    }
+  }
+  'inva_barras.update': {
+    methods: ["PUT","PATCH"]
+    pattern: '/api/v1/inva-barras/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/inva_barra').updateInvaBarraValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/inva_barra').updateInvaBarraValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/inva_barras_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/inva_barras_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'inva_barras.destroy': {
+    methods: ["DELETE"]
+    pattern: '/api/v1/inva-barras/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/inva_barras_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/inva_barras_controller').default['destroy']>>>
+    }
+  }
   'alunos.index': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/alunos'

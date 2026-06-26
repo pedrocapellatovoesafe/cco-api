@@ -7,6 +7,7 @@ export default class BarrasController {
       .preload('modeloAeronave')
       .preload('base')
       .preload('horarios')
+      .preload('invas')
     return response.json(barras)
   }
 
@@ -16,6 +17,7 @@ export default class BarrasController {
       .preload('modeloAeronave')
       .preload('base')
       .preload('horarios')
+      .preload('invas')
       .firstOrFail()
     return response.json(barra)
   }
@@ -26,6 +28,7 @@ export default class BarrasController {
     await barra.load('modeloAeronave')
     await barra.load('base')
     await barra.load('horarios')
+    await barra.load('invas')
     return response.json(barra)
   }
 
@@ -37,6 +40,7 @@ export default class BarrasController {
     await barra.load('modeloAeronave')
     await barra.load('base')
     await barra.load('horarios')
+    await barra.load('invas')
     return response.json(barra)
   }
 

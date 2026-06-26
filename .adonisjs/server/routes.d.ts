@@ -71,6 +71,13 @@ export type ScannedRoutes = {
     'invas.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'invas.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'invas.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'inva_barras.index': { paramsTuple?: []; params?: {} }
+    'inva_barras.create': { paramsTuple?: []; params?: {} }
+    'inva_barras.store': { paramsTuple?: []; params?: {} }
+    'inva_barras.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'inva_barras.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'inva_barras.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'inva_barras.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'alunos.index': { paramsTuple?: []; params?: {} }
     'alunos.create': { paramsTuple?: []; params?: {} }
     'alunos.store': { paramsTuple?: []; params?: {} }
@@ -161,6 +168,10 @@ export type ScannedRoutes = {
     'invas.create': { paramsTuple?: []; params?: {} }
     'invas.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'invas.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'inva_barras.index': { paramsTuple?: []; params?: {} }
+    'inva_barras.create': { paramsTuple?: []; params?: {} }
+    'inva_barras.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'inva_barras.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'alunos.index': { paramsTuple?: []; params?: {} }
     'alunos.create': { paramsTuple?: []; params?: {} }
     'alunos.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -226,6 +237,10 @@ export type ScannedRoutes = {
     'invas.create': { paramsTuple?: []; params?: {} }
     'invas.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'invas.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'inva_barras.index': { paramsTuple?: []; params?: {} }
+    'inva_barras.create': { paramsTuple?: []; params?: {} }
+    'inva_barras.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'inva_barras.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'alunos.index': { paramsTuple?: []; params?: {} }
     'alunos.create': { paramsTuple?: []; params?: {} }
     'alunos.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -266,6 +281,7 @@ export type ScannedRoutes = {
     'aeronaves.store': { paramsTuple?: []; params?: {} }
     'missoes.store': { paramsTuple?: []; params?: {} }
     'invas.store': { paramsTuple?: []; params?: {} }
+    'inva_barras.store': { paramsTuple?: []; params?: {} }
     'alunos.store': { paramsTuple?: []; params?: {} }
     'restricoes.import': { paramsTuple?: []; params?: {} }
     'restricoes.bulk_destroy': { paramsTuple?: []; params?: {} }
@@ -288,6 +304,7 @@ export type ScannedRoutes = {
     'aeronaves.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'missoes.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'invas.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'inva_barras.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'alunos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'restricoes.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tipo_disponibilidades.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -306,6 +323,7 @@ export type ScannedRoutes = {
     'aeronaves.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'missoes.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'invas.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'inva_barras.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'alunos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'restricoes.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tipo_disponibilidades.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -323,6 +341,7 @@ export type ScannedRoutes = {
     'aeronaves.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'missoes.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'invas.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'inva_barras.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'alunos.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'restricoes.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tipo_disponibilidades.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }

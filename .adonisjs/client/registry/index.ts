@@ -408,6 +408,48 @@ const routes = {
     tokens: [{"old":"/api/v1/invas/:id","type":0,"val":"api","end":""},{"old":"/api/v1/invas/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/invas/:id","type":0,"val":"invas","end":""},{"old":"/api/v1/invas/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['invas.destroy']['types'],
   },
+  'inva_barras.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/inva-barras',
+    tokens: [{"old":"/api/v1/inva-barras","type":0,"val":"api","end":""},{"old":"/api/v1/inva-barras","type":0,"val":"v1","end":""},{"old":"/api/v1/inva-barras","type":0,"val":"inva-barras","end":""}],
+    types: placeholder as Registry['inva_barras.index']['types'],
+  },
+  'inva_barras.create': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/inva-barras/create',
+    tokens: [{"old":"/api/v1/inva-barras/create","type":0,"val":"api","end":""},{"old":"/api/v1/inva-barras/create","type":0,"val":"v1","end":""},{"old":"/api/v1/inva-barras/create","type":0,"val":"inva-barras","end":""},{"old":"/api/v1/inva-barras/create","type":0,"val":"create","end":""}],
+    types: placeholder as Registry['inva_barras.create']['types'],
+  },
+  'inva_barras.store': {
+    methods: ["POST"],
+    pattern: '/api/v1/inva-barras',
+    tokens: [{"old":"/api/v1/inva-barras","type":0,"val":"api","end":""},{"old":"/api/v1/inva-barras","type":0,"val":"v1","end":""},{"old":"/api/v1/inva-barras","type":0,"val":"inva-barras","end":""}],
+    types: placeholder as Registry['inva_barras.store']['types'],
+  },
+  'inva_barras.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/inva-barras/:id',
+    tokens: [{"old":"/api/v1/inva-barras/:id","type":0,"val":"api","end":""},{"old":"/api/v1/inva-barras/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/inva-barras/:id","type":0,"val":"inva-barras","end":""},{"old":"/api/v1/inva-barras/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['inva_barras.show']['types'],
+  },
+  'inva_barras.edit': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/inva-barras/:id/edit',
+    tokens: [{"old":"/api/v1/inva-barras/:id/edit","type":0,"val":"api","end":""},{"old":"/api/v1/inva-barras/:id/edit","type":0,"val":"v1","end":""},{"old":"/api/v1/inva-barras/:id/edit","type":0,"val":"inva-barras","end":""},{"old":"/api/v1/inva-barras/:id/edit","type":1,"val":"id","end":""},{"old":"/api/v1/inva-barras/:id/edit","type":0,"val":"edit","end":""}],
+    types: placeholder as Registry['inva_barras.edit']['types'],
+  },
+  'inva_barras.update': {
+    methods: ["PUT","PATCH"],
+    pattern: '/api/v1/inva-barras/:id',
+    tokens: [{"old":"/api/v1/inva-barras/:id","type":0,"val":"api","end":""},{"old":"/api/v1/inva-barras/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/inva-barras/:id","type":0,"val":"inva-barras","end":""},{"old":"/api/v1/inva-barras/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['inva_barras.update']['types'],
+  },
+  'inva_barras.destroy': {
+    methods: ["DELETE"],
+    pattern: '/api/v1/inva-barras/:id',
+    tokens: [{"old":"/api/v1/inva-barras/:id","type":0,"val":"api","end":""},{"old":"/api/v1/inva-barras/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/inva-barras/:id","type":0,"val":"inva-barras","end":""},{"old":"/api/v1/inva-barras/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['inva_barras.destroy']['types'],
+  },
   'alunos.index': {
     methods: ["GET","HEAD"],
     pattern: '/api/v1/alunos',

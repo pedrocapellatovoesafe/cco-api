@@ -49,6 +49,7 @@ router.group(() => {
       router.resource('aeronaves', controllers.Aeronaves)
       router.resource('missoes', controllers.Missoes)
       router.resource('invas', controllers.Invas)
+      router.resource('inva-barras', controllers.InvaBarras)
       router.resource('alunos', controllers.Alunos)
       router.post('restricoes/import', [controllers.Restricoes, 'import'])
       router.post('restricoes/bulk-delete', [controllers.Restricoes, 'bulkDestroy'])

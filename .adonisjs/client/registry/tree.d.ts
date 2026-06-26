@@ -99,6 +99,15 @@ export interface ApiDefinition {
     update: typeof routes['invas.update']
     destroy: typeof routes['invas.destroy']
   }
+  invaBarras: {
+    index: typeof routes['inva_barras.index']
+    create: typeof routes['inva_barras.create']
+    store: typeof routes['inva_barras.store']
+    show: typeof routes['inva_barras.show']
+    edit: typeof routes['inva_barras.edit']
+    update: typeof routes['inva_barras.update']
+    destroy: typeof routes['inva_barras.destroy']
+  }
   alunos: {
     index: typeof routes['alunos.index']
     create: typeof routes['alunos.create']

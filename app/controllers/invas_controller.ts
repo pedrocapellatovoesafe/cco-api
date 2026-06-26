@@ -9,6 +9,7 @@ export default class InvasController {
     const query = Inva.query()
       .preload('situacaoInva')
       .preload('base')
+      .preload('barras')
       .preload('escalas', (escalasQuery) => {
         escalasQuery.preload('tipoDisponibilidade')
         if (month) {
@@ -25,6 +26,7 @@ export default class InvasController {
       .where('id', params.id)
       .preload('situacaoInva')
       .preload('base')
+      .preload('barras')
       .preload('escalas', (escalasQuery) => {
         escalasQuery.preload('tipoDisponibilidade')
       })
@@ -35,6 +37,9 @@ export default class InvasController {
   async store({ request, response }: HttpContext) {
     const data = await request.validateUsing(createInvaValidator)
     const inva = await Inva.create(data)
+    await inva.load('situacaoInva')
+    await inva.load('base')
+    await inva.load('barras')
     return response.json(inva)
   }
 
@@ -43,6 +48,9 @@ export default class InvasController {
     const data = await request.validateUsing(updateInvaValidator)
     inva.merge(data)
     await inva.save()
+    await inva.load('situacaoInva')
+    await inva.load('base')
+    await inva.load('barras')
     return response.json(inva)
   }
 

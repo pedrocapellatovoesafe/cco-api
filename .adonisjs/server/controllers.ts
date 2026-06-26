@@ -12,6 +12,7 @@ export const controllers = {
   Bases: () => import('#controllers/bases_controller'),
   Cursos: () => import('#controllers/cursos_controller'),
   EscalaTrabalhos: () => import('#controllers/escala_trabalhos_controller'),
+  InvaBarras: () => import('#controllers/inva_barras_controller'),
   Invas: () => import('#controllers/invas_controller'),
   Missoes: () => import('#controllers/missoes_controller'),
   ModeloAeronaves: () => import('#controllers/modelo_aeronaves_controller'),
