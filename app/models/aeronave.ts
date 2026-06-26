@@ -20,6 +20,12 @@ export default class Aeronave extends BaseModel {
   @column()
   declare horasDisponiveis: number
 
+  @column()
+  declare tipoAeronave: boolean
+
+  @column()
+  declare tipoSimulador: boolean
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

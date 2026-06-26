@@ -44,10 +44,11 @@ test.group('InvaBarras CRUD', () => {
       })
 
     storeResponse.assertStatus(200)
-    const createdId = storeResponse.body().id
+    const storeBody = storeResponse.body() as any
+    const createdId = storeBody.id
     assert.exists(createdId)
-    assert.equal(storeResponse.body().invaId, inva.id)
-    assert.equal(storeResponse.body().barraId, barra.id)
+    assert.equal(storeBody.invaId, inva.id)
+    assert.equal(storeBody.barraId, barra.id)
 
     // 3. Prevent duplicate association (POST - Conflict)
     const duplicateResponse = await client
@@ -62,7 +63,7 @@ test.group('InvaBarras CRUD', () => {
     // 4. Get list (GET Index)
     const indexResponse = await client.get('/api/v1/inva-barras').loginAs(user)
     indexResponse.assertStatus(200)
-    const list = indexResponse.body()
+    const list = indexResponse.body() as any
     assert.isTrue(Array.isArray(list))
     const item = list.find((x: any) => x.id === createdId)
     assert.exists(item)
@@ -72,7 +73,8 @@ test.group('InvaBarras CRUD', () => {
     // 5. Get single (GET Show)
     const showResponse = await client.get(`/api/v1/inva-barras/${createdId}`).loginAs(user)
     showResponse.assertStatus(200)
-    assert.equal(showResponse.body().id, createdId)
+    const showBody = showResponse.body() as any
+    assert.equal(showBody.id, createdId)
 
     // 6. Update association (PUT)
     const anotherBarra = await Barra.create({
@@ -90,7 +92,7 @@ test.group('InvaBarras CRUD', () => {
       })
 
     updateResponse.assertStatus(200)
-    assert.equal(updateResponse.body().barraId, anotherBarra.id)
+    assert.equal((updateResponse.body() as any).barraId, anotherBarra.id)
 
     // 7. Delete association (DELETE)
     const deleteResponse = await client.delete(`/api/v1/inva-barras/${createdId}`).loginAs(user)

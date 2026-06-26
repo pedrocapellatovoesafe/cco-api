@@ -94,11 +94,14 @@ export default class CcoSeeder extends BaseSeeder {
     ]
     for (const { nome, modelo } of aeronavesData) {
       const modeloInstance = await ModeloAeronave.findByOrFail('nome', modelo)
+      const isSim = modeloInstance.id === 4 || modeloInstance.id === 5
       await Aeronave.updateOrCreate(
         { nome },
         {
           nome,
           modeloAeronaveId: modeloInstance.id,
+          tipoAeronave: !isSim,
+          tipoSimulador: isSim,
         }
       )
     }

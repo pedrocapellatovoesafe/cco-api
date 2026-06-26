@@ -8,7 +8,7 @@ import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
 export class AeronaveSchema extends BaseModel {
-  static $columns = ['createdAt', 'horasDisponiveis', 'id', 'modeloAeronaveId', 'nome', 'updatedAt'] as const
+  static $columns = ['createdAt', 'horasDisponiveis', 'id', 'modeloAeronaveId', 'nome', 'tipoAeronave', 'tipoSimulador', 'updatedAt'] as const
   $columns = AeronaveSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -20,6 +20,10 @@ export class AeronaveSchema extends BaseModel {
   declare modeloAeronaveId: number
   @column()
   declare nome: string
+  @column()
+  declare tipoAeronave: boolean
+  @column()
+  declare tipoSimulador: boolean
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
@@ -334,14 +338,14 @@ export class UserSchema extends BaseModel {
 }
 
 export class VoosRealizadoSchema extends BaseModel {
-  static $columns = ['abastecimento', 'aeronave', 'aluno', 'cavokId', 'createdAt', 'data', 'id', 'instrutor', 'missao', 'tempoTotalVoo', 'tipoVooFinanceiro', 'updatedAt'] as const
+  static $columns = ['abastecimento', 'aeronaveId', 'alunoId', 'cavokId', 'createdAt', 'data', 'id', 'invaId', 'missaoId', 'tempoTotalVoo', 'tipoVooFinanceiro', 'updatedAt'] as const
   $columns = VoosRealizadoSchema.$columns
   @column()
   declare abastecimento: number | null
   @column()
-  declare aeronave: string | null
+  declare aeronaveId: number | null
   @column()
-  declare aluno: string | null
+  declare alunoId: number | null
   @column()
   declare cavokId: number
   @column.dateTime({ autoCreate: true })
@@ -351,9 +355,9 @@ export class VoosRealizadoSchema extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
   @column()
-  declare instrutor: string | null
+  declare invaId: number | null
   @column()
-  declare missao: string | null
+  declare missaoId: number | null
   @column()
   declare tempoTotalVoo: number | null
   @column()

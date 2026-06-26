@@ -1,5 +1,10 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import Missao from './missao.js'
+import Inva from './inva.js'
+import Aeronave from './aeronave.js'
+import Aluno from './aluno.js'
 
 export default class VooRealizado extends BaseModel {
   public static table = 'voos_realizados'
@@ -14,16 +19,16 @@ export default class VooRealizado extends BaseModel {
   declare tipoVooFinanceiro: string | null
 
   @column()
-  declare missao: string | null
+  declare missaoId: number | null
 
   @column()
-  declare instrutor: string | null
+  declare invaId: number | null
 
   @column()
-  declare aeronave: string | null
+  declare aeronaveId: number | null
 
   @column()
-  declare aluno: string | null
+  declare alunoId: number | null
 
   @column()
   declare tempoTotalVoo: number | null
@@ -39,4 +44,24 @@ export default class VooRealizado extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  @belongsTo(() => Missao, {
+    foreignKey: 'missaoId',
+  })
+  declare missaoRelation: BelongsTo<typeof Missao>
+
+  @belongsTo(() => Inva, {
+    foreignKey: 'invaId',
+  })
+  declare invaRelation: BelongsTo<typeof Inva>
+
+  @belongsTo(() => Aeronave, {
+    foreignKey: 'aeronaveId',
+  })
+  declare aeronaveRelation: BelongsTo<typeof Aeronave>
+
+  @belongsTo(() => Aluno, {
+    foreignKey: 'alunoId',
+  })
+  declare alunoRelation: BelongsTo<typeof Aluno>
 }

@@ -8,10 +8,39 @@ export default class extends BaseSchema {
       table.increments('id').notNullable()
       table.integer('cavok_id').unsigned().notNullable().unique()
       table.string('tipo_voo_financeiro').nullable()
-      table.string('missao').nullable()
-      table.string('instrutor').nullable()
-      table.string('aeronave').nullable()
-      table.string('aluno').nullable()
+      
+      table
+        .integer('missao_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('missoes')
+        .onDelete('SET NULL')
+
+      table
+        .integer('inva_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('invas')
+        .onDelete('SET NULL')
+
+      table
+        .integer('aeronave_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('aeronaves')
+        .onDelete('SET NULL')
+
+      table
+        .integer('aluno_id')
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('alunos')
+        .onDelete('SET NULL')
+
       table.double('tempo_total_voo').nullable()
       table.integer('abastecimento').nullable()
       table.string('data').nullable()
