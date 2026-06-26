@@ -332,3 +332,32 @@ export class UserSchema extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
+
+export class VoosRealizadoSchema extends BaseModel {
+  static $columns = ['abastecimento', 'aeronave', 'aluno', 'cavokId', 'createdAt', 'data', 'id', 'instrutor', 'missao', 'tempoTotalVoo', 'tipoVooFinanceiro', 'updatedAt'] as const
+  $columns = VoosRealizadoSchema.$columns
+  @column()
+  declare abastecimento: number | null
+  @column()
+  declare aeronave: string | null
+  @column()
+  declare aluno: string | null
+  @column()
+  declare cavokId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare data: string | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare instrutor: string | null
+  @column()
+  declare missao: string | null
+  @column()
+  declare tempoTotalVoo: number | null
+  @column()
+  declare tipoVooFinanceiro: string | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}

@@ -24,4 +24,5 @@ export const controllers = {
   StatusSlots: () => import('#controllers/status_slots_controller'),
   TipoDisponibilidades: () => import('#controllers/tipo_disponibilidades_controller'),
   Users: () => import('#controllers/users_controller'),
+  VoosRealizados: () => import('#controllers/voos_realizados_controller'),
 }

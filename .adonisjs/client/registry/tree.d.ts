@@ -147,6 +147,16 @@ export interface ApiDefinition {
     update: typeof routes['escala_trabalhos.update']
     destroy: typeof routes['escala_trabalhos.destroy']
   }
+  voosRealizados: {
+    sync: typeof routes['voos_realizados.sync']
+    index: typeof routes['voos_realizados.index']
+    create: typeof routes['voos_realizados.create']
+    store: typeof routes['voos_realizados.store']
+    show: typeof routes['voos_realizados.show']
+    edit: typeof routes['voos_realizados.edit']
+    update: typeof routes['voos_realizados.update']
+    destroy: typeof routes['voos_realizados.destroy']
+  }
   slots: {
     index: typeof routes['slots.index']
     store: typeof routes['slots.store']

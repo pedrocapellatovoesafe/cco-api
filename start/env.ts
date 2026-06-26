@@ -25,4 +25,8 @@ export default await Env.create(new URL('../', import.meta.url), {
 
   // Session
   SESSION_DRIVER: Env.schema.enum(['cookie', 'memory', 'database'] as const),
+
+  // Cavok API credentials
+  CAVOK_EMAIL: Env.schema.string(),
+  CAVOK_PASSWORD: Env.schema.string(),
 })

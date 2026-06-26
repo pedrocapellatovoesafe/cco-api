@@ -109,6 +109,14 @@ export type ScannedRoutes = {
     'escala_trabalhos.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'escala_trabalhos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'escala_trabalhos.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'voos_realizados.sync': { paramsTuple?: []; params?: {} }
+    'voos_realizados.index': { paramsTuple?: []; params?: {} }
+    'voos_realizados.create': { paramsTuple?: []; params?: {} }
+    'voos_realizados.store': { paramsTuple?: []; params?: {} }
+    'voos_realizados.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'voos_realizados.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'voos_realizados.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'voos_realizados.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'slots.index': { paramsTuple?: []; params?: {} }
     'slots.store': { paramsTuple?: []; params?: {} }
     'slots.import': { paramsTuple?: []; params?: {} }
@@ -188,6 +196,11 @@ export type ScannedRoutes = {
     'escala_trabalhos.create': { paramsTuple?: []; params?: {} }
     'escala_trabalhos.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'escala_trabalhos.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'voos_realizados.sync': { paramsTuple?: []; params?: {} }
+    'voos_realizados.index': { paramsTuple?: []; params?: {} }
+    'voos_realizados.create': { paramsTuple?: []; params?: {} }
+    'voos_realizados.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'voos_realizados.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'slots.index': { paramsTuple?: []; params?: {} }
     'slots.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.index': { paramsTuple?: []; params?: {} }
@@ -257,6 +270,11 @@ export type ScannedRoutes = {
     'escala_trabalhos.create': { paramsTuple?: []; params?: {} }
     'escala_trabalhos.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'escala_trabalhos.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'voos_realizados.sync': { paramsTuple?: []; params?: {} }
+    'voos_realizados.index': { paramsTuple?: []; params?: {} }
+    'voos_realizados.create': { paramsTuple?: []; params?: {} }
+    'voos_realizados.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'voos_realizados.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'slots.index': { paramsTuple?: []; params?: {} }
     'slots.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.index': { paramsTuple?: []; params?: {} }
@@ -289,6 +307,7 @@ export type ScannedRoutes = {
     'tipo_disponibilidades.store': { paramsTuple?: []; params?: {} }
     'escala_trabalhos.import': { paramsTuple?: []; params?: {} }
     'escala_trabalhos.store': { paramsTuple?: []; params?: {} }
+    'voos_realizados.store': { paramsTuple?: []; params?: {} }
     'slots.store': { paramsTuple?: []; params?: {} }
     'slots.import': { paramsTuple?: []; params?: {} }
     'barras.store': { paramsTuple?: []; params?: {} }
@@ -309,6 +328,7 @@ export type ScannedRoutes = {
     'restricoes.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tipo_disponibilidades.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'escala_trabalhos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'voos_realizados.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'slots.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras_horarios.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -328,6 +348,7 @@ export type ScannedRoutes = {
     'restricoes.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tipo_disponibilidades.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'escala_trabalhos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'voos_realizados.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras_horarios.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
@@ -346,6 +367,7 @@ export type ScannedRoutes = {
     'restricoes.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tipo_disponibilidades.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'escala_trabalhos.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'voos_realizados.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'slots.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'barras_horarios.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }

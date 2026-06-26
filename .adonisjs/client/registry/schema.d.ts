@@ -1267,6 +1267,102 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/escala_trabalhos_controller').default['destroy']>>>
     }
   }
+  'voos_realizados.sync': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/voos-realizados/sync'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['sync']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['sync']>>>
+    }
+  }
+  'voos_realizados.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/voos-realizados'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['index']>>>
+    }
+  }
+  'voos_realizados.create': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/voos-realizados/create'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['create']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['create']>>>
+    }
+  }
+  'voos_realizados.store': {
+    methods: ["POST"]
+    pattern: '/api/v1/voos-realizados'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/voo_realizado').createVooRealizadoValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/voo_realizado').createVooRealizadoValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'voos_realizados.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/voos-realizados/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['show']>>>
+    }
+  }
+  'voos_realizados.edit': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/voos-realizados/:id/edit'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['edit']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['edit']>>>
+    }
+  }
+  'voos_realizados.update': {
+    methods: ["PUT","PATCH"]
+    pattern: '/api/v1/voos-realizados/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/voo_realizado').updateVooRealizadoValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/voo_realizado').updateVooRealizadoValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'voos_realizados.destroy': {
+    methods: ["DELETE"]
+    pattern: '/api/v1/voos-realizados/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/voos_realizados_controller').default['destroy']>>>
+    }
+  }
   'slots.index': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/slots'

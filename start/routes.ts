@@ -58,6 +58,9 @@ router.group(() => {
 
       router.post('escala-trabalhos/import', [controllers.EscalaTrabalhos, 'import'])
       router.resource('escala-trabalhos', controllers.EscalaTrabalhos)
+      
+      router.get('voos-realizados/sync', [controllers.VoosRealizados, 'sync'])
+      router.resource('voos-realizados', controllers.VoosRealizados)
     })
     .prefix('/api/v1')
     .use(middleware.auth())
