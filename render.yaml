@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: cco-api
+    runtime: node
+    buildCommand: npm ci && node ace build && cd build && npm ci --omit=dev
+    preDeployCommand: cd build && node ace migration:run --force
+    startCommand: node build/bin/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: TZ
+        value: UTC
+      - key: LOG_LEVEL
+        value: info
+      - key: SESSION_DRIVER
+        value: cookie
+      # Origem do frontend publicado no GitHub Pages (org "voesafe")
+      - key: CORS_ORIGIN
+        value: https://voesafe.github.io
+      # Gerado automaticamente pelo Render na criação do serviço
+      - key: APP_KEY
+        generateValue: true
+      # Preencher manualmente no painel do Render após a criação:
+      # APP_URL = URL pública que o Render atribuir a este serviço
+      - key: APP_URL
+        sync: false
+      - key: SEED_USER_PASSWORD
+        sync: false
+      - key: CAVOK_EMAIL
+        sync: false
+      - key: CAVOK_PASSWORD
+        sync: false
+
+# ATENÇÃO: este serviço usa SQLite (better-sqlite3) em disco local.
+# O filesystem do Render é efêmero por padrão — os dados do banco serão
+# perdidos a cada redeploy/restart, a menos que se adicione um Persistent
+# Disk (plano pago) apontando para o caminho do arquivo .sqlite3, ou se
+# migre para um banco gerenciado (ex: Postgres).

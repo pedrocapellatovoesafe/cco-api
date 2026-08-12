@@ -29,4 +29,7 @@ export default await Env.create(new URL('../', import.meta.url), {
   // Cavok API credentials
   CAVOK_EMAIL: Env.schema.string(),
   CAVOK_PASSWORD: Env.schema.string(),
+
+  // CORS (comma-separated list of allowed origins in production)
+  CORS_ORIGIN: Env.schema.string.optional(),
 })
