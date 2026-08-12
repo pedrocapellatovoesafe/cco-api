@@ -3,8 +3,8 @@ services:
     name: cco-api
     runtime: node
     buildCommand: NODE_ENV=development npm ci && node ace build && cd build && npm ci --omit=dev
-    preDeployCommand: cd build && node ace migration:run --force
-    startCommand: cd build && node ace migration:run --force && node bin/server.js
+    preDeployCommand: cd build && mkdir -p tmp && node ace migration:run --force
+    startCommand: cd build && mkdir -p tmp && node ace migration:run --force && node bin/server.js
     envVars:
       - key: NODE_ENV
         value: production
