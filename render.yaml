@@ -16,9 +16,9 @@ services:
         value: info
       - key: SESSION_DRIVER
         value: cookie
-      # Origem do frontend publicado no GitHub Pages (org "voesafe")
+      # Origem do frontend publicado no GitHub Pages (usuário "pedrocapellatovoesafe")
       - key: CORS_ORIGIN
-        value: https://voesafe.github.io
+        value: https://pedrocapellatovoesafe.github.io
       # Gerado automaticamente pelo Render na criação do serviço
       - key: APP_KEY
         generateValue: true
