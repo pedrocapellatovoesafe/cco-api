@@ -1,3 +1,7 @@
+// @ts-nocheck
+// Seeder desativado (run() comentado abaixo) enquanto se aguarda uma melhor
+// implementação, para evitar retrabalho de inserção no frontend. Os imports e
+// membros abaixo só são usados dentro do bloco comentado.
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
 import Inva from '#models/inva'
 import Missao from '#models/missao'

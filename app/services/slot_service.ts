@@ -91,8 +91,8 @@ export default class SlotService {
    * 4. A tabela de slots é limpa antes da importação para garantir que apenas os dados novos persistam.
    */
   async import(slotsData: any[]) {
-    const results = []
-    const errors = []
+    const results: any[] = []
+    const errors: any[] = []
 
     // Pre-fetch reference data
     const [alunos, invas, aeronaves, missoes, barras, statusSlots] = await Promise.all([

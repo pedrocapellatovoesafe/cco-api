@@ -88,7 +88,7 @@ test.group('Slot Import', (group) => {
 
     const modelo = await ModeloAeronave.create({ nome: 'MODELO TESTE 2 ' + Math.random() })
     const base = await Base.create({ nome: 'BASE TESTE 2 ' + Math.random() })
-    const status = await StatusSlot.create({ nome: 'PENDENTE' })
+    await StatusSlot.create({ nome: 'PENDENTE' })
     const barra = await Barra.create({
       nome: 'BARRA TESTE 2 ' + Math.random(),
       modeloAeronaveId: modelo.id,
